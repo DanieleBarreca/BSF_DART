@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="None">
+        
+        
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <title>DART - Diagnostic Analysis and Reporting Tool</title>
+        <link href="css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="js/jquery-1.10.2.min.js" defer></script>
+        <script src="js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body class="homepage">
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href=".">DART - Diagnostic Analysis and Reporting Tool</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="active">
+                                <a href=".">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Guides <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="guide-overview/">Overview</a>
+</li>
+                                    
+<li >
+    <a href="guide-queries/">Query</a>
+</li>
+                                    
+<li >
+    <a href="guide-report/">Report</a>
+</li>
+                                    
+<li >
+    <a href="guide-admin/">Admin</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="disabled">
+                                <a rel="next" >
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="guide-overview/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#diagnostic-analysis-and-reporting-tool">Diagnostic Analysis and Reporting Tool</a></li>
+            <li><a href="#finding-the-one-in-a-million">Finding the one in a million</a></li>
+            <li><a href="#reporting-variants">Reporting variants</a></li>
+            <li><a href="#going-the-extra-mile">Going the extra mile</a></li>
+            <li><a href="#full-control">Full control</a></li>
+        <li class="main "><a href="#getting-started">Getting started</a></li>
+            <li><a href="#access">Access</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="diagnostic-analysis-and-reporting-tool">Diagnostic Analysis and Reporting Tool</h1>
+<p><img alt="Dart welcome" src="img/guide-welcome.png" style="height:300px;width:500px" /></p>
+<h2 id="finding-the-one-in-a-million">Finding the one in a million</h2>
+<p>Rare und undiagnosed diseases are often caused by genetic defects. Rapid identification of the causal mutation(s) provides a molecular diagnosis that can inform potentially invasive treatment decisions and reduces the need for lengthy (and often costly) testing. Genetic diagnoses are currently hampered by the large number of potential disease genes, by the high number of variants identified and by the complexity of variant annotation, which can lead to major delays in reaching a confident genetic diagnosis.</p>
+<h2 id="reporting-variants">Reporting variants</h2>
+<p>DART is a user-friendly, non-commercial software tool that assists researchers and clinicians with the filtering and interpretation of genetic variants obtained by next generation sequencing (e.g. diagnostic panels, exome sequencing, or whole genome sequencing. DART facilitates confident genetic diagnoses in compliance with emerging community standards. Starting with an annotated VCF file, DART supports interactive filtering, implements ACMG- AMP classification, provides full audit history, and helps generate custom patient reports.</p>
+<h2 id="going-the-extra-mile">Going the extra mile</h2>
+<p>Starting with an annotated VCF file, DART supports the user by providing</p>
+<ul>
+<li>Sample focused analysis </li>
+<li>Virtual gene panels</li>
+<li>Standardized filtering</li>
+<li>Interactive exploration and visualization of variants</li>
+<li>Disease focused variant analysis</li>
+<li>Trio / relatedness variant representation</li>
+<li>Support ACMG-AMP variant curation</li>
+</ul>
+<h2 id="full-control">Full control</h2>
+<p>DART rivals commercial variant annotation software in terms of features and user-friendliness, and – as an open source software with no strings attached – it puts the full control over genetic data back in the hands of the clinical laboratories that analyse the data. It thus avoids undue commercialization of genome data and facilitate responsible sharing. </p>
+<h1 id="getting-started">Getting started</h1>
+<p>Please have a look at the <a href="guide-overview/">Guide</a></p>
+<h2 id="access">Access</h2>
+<p>For installation / configuration details, please refer to our <a href="https://github.com/DanieleBarreca/BSF_DART">GITHUB repository</a>.</p>
+<!-- # Welcome to MkDocs
+
+For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+
+## Commands
+
+* `mkdocs new [dir-name]` - Create a new project.
+* `mkdocs serve` - Start the live-reloading docs server.
+* `mkdocs build` - Build the documentation site.
+* `mkdocs -h` - Print help message and exit.
+
+## Project layout
+
+    mkdocs.yml    # The configuration file.
+    docs/
+        index.md  # The documentation homepage.
+        ...       # Other markdown pages, images and other files. --></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = ".",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="js/base.js" defer></script>
+        <script src="search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
+
+<!--
+MkDocs version : 1.0.4
+Build Date UTC : 2020-12-15 14:14:05
+-->

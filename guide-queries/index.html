@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Query - DART - Diagnostic Analysis and Reporting Tool</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="..">DART - Diagnostic Analysis and Reporting Tool</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Guides <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../guide-overview/">Overview</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Query</a>
+</li>
+                                    
+<li >
+    <a href="../guide-report/">Report</a>
+</li>
+                                    
+<li >
+    <a href="../guide-admin/">Admin</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../guide-overview/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../guide-report/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#query-samples">Query Samples</a></li>
+            <li><a href="#sample-selection">Sample selection</a></li>
+            <li><a href="#virtual-gene-panel">Virtual Gene Panel</a></li>
+            <li><a href="#filtering">Filtering</a></li>
+            <li><a href="#query-status">Query status</a></li>
+            <li><a href="#query-result">Query result</a></li>
+            <li><a href="#disease-focus">Disease focus</a></li>
+            <li><a href="#variant-curation">Variant curation</a></li>
+            <li><a href="#report-generation">Report generation</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="query-samples">Query Samples</h1>
+<p><strong>Queries</strong> allow the filtering of <strong>sample variants</strong>, to investigate relations to other samples, to load <strong>virtual gene</strong> panels (gene names or genomic relevant regions) and predefined <strong>standardised filters</strong>.</p>
+<p><img alt="Dart query" src="../img/guide-query_overview.png" /></p>
+<h2 id="sample-selection">Sample selection</h2>
+<p>A sample identifier is searched and selected across all accessible VCF files. The list can be filtered by the sample and file name. To select a sample, double-click on its name.</p>
+<p><img alt="Dart Sample selection" src="../img/guide-query-sample-selection.png" /></p>
+<h2 id="virtual-gene-panel">Virtual Gene Panel</h2>
+<p>Disease specific panels can be pre-defined in DART to simplify analyses of known phenotypes. Panels can be defined as HGNC gene 
+names or as genomic relevant regions in BED file format. The use of panels can be 
+enforced to prevent secondary findings. </p>
+<p><img alt="Dart Virtual Gene Panel" src="../img/guide-query-virtual-panel.png" /></p>
+<h2 id="filtering">Filtering</h2>
+<p>The query system allows to create rules (filtering conditions) on each of the VCF fields. The rules can be logically group together. 
+Disease specific filtering strategies can be prepared to allow for 
+different modes of inheritance (e.g. dominant, recessive) and 
+expected frequency in the population.</p>
+<p><img alt="Dart Standardised filtering" src="../img/guide-query-standardised-filtering.png" /></p>
+<h2 id="query-status">Query status</h2>
+<p>Once the query is submitted its status is visualized. For each filtering strategy there are three queries running:</p>
+<ul>
+<li>count: the query counts of all variants meeting the criteria</li>
+<li>variants: the query returns the first 2000 variants meeting the criteria</li>
+<li>coverage: the query returns all the problematic regions within the selected virtual panel  </li>
+</ul>
+<p><img alt="Dart Query status" src="../img/guide-query-status.png" /></p>
+<h2 id="query-result">Query result</h2>
+<p>By clicking on the banner close to the variants or coverage query statuses, the results can be explored.</p>
+<p><img alt="Dart Query result" src="../img/guide-query-result.png" /></p>
+<h3 id="variant-details">Variant details</h3>
+<p>By double clicking on a variant relevant information is visualised in a summary panel</p>
+<p><img alt="Dart Variant details" src="../img/guide-query-details.png" /></p>
+<h3 id="sequencing-reads-visualization">Sequencing reads visualization</h3>
+<p>By clicking on the Reads panel a genome browser is shown in order to investigate sequencing and alignment quality</p>
+<p><img alt="Dart Variant Reads" src="../img/guide-query-reads.png" /></p>
+<h2 id="disease-focus">Disease focus</h2>
+<p>Disease context specific analysis of a patient enables the clinical assessment of variants for the selected disease(s). Previous variant annotations are displayed and highlighted depending on the disease focus.
+For a given patient it is possible to specify a phenotype by clicking on the clincal curation icon</p>
+<p><img alt="Dart Disease focus" src="../img/guide-query-focus.png" /></p>
+<h2 id="variant-curation">Variant curation</h2>
+<p>DART supports the ACMG-AMP annotation of variants in the disease context. Variant annotations are stored in DART as a knowledge base and provided as guidance across samples and diseases.</p>
+<p>The variants can be both annotated for quality by clicking on the VALIDATION column, in which case the annotation is specific for the variant, the sample and the vcf file or by clincal significance by clicking on the ANNOTATIONS column,
+in which case the annotation is specific for the variant and the selected phenotype. </p>
+<h3 id="validation-curation">Validation curation</h3>
+<p><img alt="Dart Variant curation" src="../img/guide-query-curation-validation.png" /></p>
+<h3 id="pathogenicity-curation">Pathogenicity curation</h3>
+<p><img alt="Dart Variant curation" src="../img/guide-query-curation.png" /></p>
+<h3 id="visualization-of-annotated-variants">Visualization of annotated variants</h3>
+<p><img alt="Dart Variant curated" src="../img/guide-query-curated.png" /></p>
+<h2 id="report-generation">Report generation</h2>
+<p>Once the curation activity is complete, a report can be generated by clicking on the disk icon.   </p>
+<p><img alt="disk icon" src="../img/guide-query-report-save.png" /></p>
+<p>Please, note that both the panel preset (even if empty) and the query preset must be saved and given a name by clicking on the respective "hearth" icon:</p>
+<p><img alt="disk icon" src="../img/guide-query-save-panel.png" /> </p>
+<p>Saving a report can take some time since all the variants and coverage results are saved permantently in the SQL database. <strong>It is highly recommended to narrow the filtering
+  to a specific gene panel to save storage and time.</strong></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
