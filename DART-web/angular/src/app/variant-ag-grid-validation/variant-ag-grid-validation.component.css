@@ -1,0 +1,33 @@
+.label-UNCONFIRMED {
+  background-color: #d9534f;
+}
+
+.label-CONFIRMED {
+  background-color: limegreen;
+}
+
+.label-ARTIFACT {
+  background-color: #333333;
+}
+
+
+.add-annotation {
+  width: 15px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  margin-right: 5px;
+  color:darkgrey;
+}
+
+.add-annotation i {
+  color:darkgrey;
+}
+
+.add-annotation i:hover{
+  color: black;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}

@@ -1,0 +1,9 @@
+#panel.panel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: unset;
+}
+
+#panel .panel-heading {
+  border-bottom: unset;
+}

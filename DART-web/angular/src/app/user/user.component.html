@@ -1,0 +1,144 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">User Details</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form class="form-horizontal" #userForm="ngForm">
+  <div class="modal-body" *ngIf="user">
+
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <label for="login" class="col-sm-2 control-label">Login</label>
+        <div class="col-sm-4">
+          <p class="form-control-static" id="login">{{user.userName}}</p>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <label for="firstName" class="col-sm-2 control-label">First Name</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="user.firstName" name="firstNameControl" #firstNameControl="ngModel" required>
+            <div [hidden]="(firstNameControl.valid || firstNameControl.pristine)" class="alert alert-danger" style="padding: 5px;margin-bottom: 0px;text-align: center">
+                First Name is required
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastNameControl" #lastNameControl="ngModel" required>
+            <div [hidden]="(lastNameControl.valid || lastNameControl.pristine)" class="alert alert-danger" style="padding: 5px;margin-bottom: 0px;text-align: center">
+                Last Name is required
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-3"></div>
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-4">
+            <input type="email" class="form-control" id="email" name="emailControl" #emailControl="ngModel"
+              [(ngModel)]="user.email"
+              compareTo="emailVerifyControl"
+              parent="true"
+              validate-email
+              required>
+            <div *ngIf="(!emailControl.valid && !emailControl.pristine)" class="alert alert-danger" style="padding: 5px;margin-bottom: 0px;text-align: center">
+                <div *ngIf="emailControl.errors.required">Email is required.</div>
+                <div *ngIf="emailControl.errors.pattern && !emailControl.errors.required">Email is not valid</div>
+            </div>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+
+      <div class="form-group" *ngIf="(!emailControl.pristine && emailControl.valid)">
+        <div class="col-sm-3"></div>
+        <label for="email" class="col-sm-2 control-label">Confirm Email</label>
+        <div class="col-sm-4">
+          <input
+            type="email" class="form-control" id="email" placeholder="Retype Email..."
+            [(ngModel)]="user.verifyEmail"
+            name="emailVerifyControl"
+            #emailVerifyControl=ngModel
+            (paste)="false"
+            compareTo="emailControl"
+            required>
+          <div *ngIf="(!emailVerifyControl.valid)" class="alert alert-danger" style="padding: 5px;margin-bottom: 0px;text-align: center">
+              <div *ngIf="emailVerifyControl.pristine || emailVerifyControl.errors.required">Verify Email is required.</div>
+              <div *ngIf="emailVerifyControl.errors.compare && !emailVerifyControl.errors.required && !emailVerifyControl.pristine">Email and Verify email do not match</div>
+          </div>
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+
+      <div class="form-group" style="border-top: 1px solid #e5e5e5">
+        <div class="col-sm-12" style="text-align:center">
+          <h4>User Permissions</h4>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-12">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>User Group</th>
+                <th style="text-align: center">Admin</th>
+                <th style="text-align: center">Upload VCF</th>
+                <th style="text-align: center">Query VCF</th>
+                <th style="text-align: center">Save Query Preset</th>
+                <th style="text-align: center">Save Panel</th>
+                <th style="text-align: center">Pathogenicity</th>
+                <th style="text-align: center">Validation</th>
+                <th style="text-align: center">Report</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let group of groups">
+                <td>{{group}}</td>
+                <td style="text-align: center">
+                    <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].isAdmin'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canUploadVCF'></i>
+              </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canQueryVCF'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canSavePreset'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canSavePanel'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canAnnotatePathogenicity'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canValidateVariants'></i>
+                </td>
+                <td style="text-align: center">
+                  <i class="glyphicon glyphicon-ok" *ngIf= 'user.permissions[group].canSaveReport'></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+  </div>
+  <div class="modal-footer">
+    <div *ngIf="message" class="alert alert-danger" style="padding: 5px;margin-bottom: 5px;text-align: center">
+      {{message}}
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="!userForm.form.valid || userForm.form.pristine" (click)="submitChanges()">Submit</button>
+    <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Cancel</button>
+  </div>
+</form>

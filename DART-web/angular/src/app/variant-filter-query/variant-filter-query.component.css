@@ -1,0 +1,15 @@
+.file-select-modal {
+    width: 90%;
+}
+
+.red {
+  background-color: #9e1a1a;
+}
+
+.row-spaced {
+    margin-bottom: 5px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}

@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Load gene Panel</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+    <div class="col-xs-2">
+      <strong>Mnemonic</strong>
+    </div>
+    <div class="col-xs-4">
+      <strong>BED File Name</strong>
+    </div>
+    <div class="col-xs-5" style=" word-wrap: break-word;">
+      <strong>Genes</strong>
+    </div>
+    <div class="col-xs-1"></div>
+  </div>
+  <div style="height:calc(97% - 55px);overflow:auto;width:100%;">
+    <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let preset of panelPresets">
+      <div class="col-xs-2"> {{preset.MNEMONIC}}</div>
+      <div class="col-xs-4">{{preset.BED_REF_ID? preset.BED_NAME : ''}}</div>
+      <div class="col-xs-5" style="word-wrap: break-word;">{{preset.GENES}}</div>
+      <div class="col-xs-1">
+        <button class="btn btn-default btn-sm pull-right" style="margin-left:5px" (click)="presetSelected.emit(preset)">
+          <i class="glyphicon glyphicon-export"></i>
+        </button>
+        <button  *ngIf="canDeletePreset()" class="btn btn-default btn-sm pull-right" (click)="deletePreset(preset.REF_ID)">
+          <i class="glyphicon glyphicon-trash"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

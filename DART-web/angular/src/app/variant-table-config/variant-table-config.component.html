@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Table Configuration</h4>
+  <div class="btn-group pull-right" style="margin-right: 10px">
+      <button style="border: none" class="btn btn-default btn-sm "
+          tooltip="Save fields preset"
+          placement="left" (click)="savePreset()">
+          <i class="glyphicon glyphicon-heart"></i>
+      </button>
+      <button style="border: none"
+          class="btn btn-default btn-sm " tooltip="Load fields preset" placement="bottom" (click)="loadPreset()">
+          <i class="glyphicon glyphicon-open"></i>
+      </button>
+      <button style="border: none"
+          class="btn btn-default btn-sm " tooltip="New fields preset" placement="right" (click)="resetPreset()">
+          <i class="glyphicon glyphicon-file"></i>
+      </button>
+  </div>
+</div>
+<div class="modal-body" style="height: calc(100vh - 171px)">
+    <div style="width:97%;">
+        <div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+          <div class="col-xs-2 text-center">
+            <div class="sort-icon-placeholder" *ngIf="sortable"></div>
+            <div class="spacer"></div>
+            <input [checked]="isAllVisible()" (change)="toggleVisible($event)" type="checkbox" *ngIf="sortable">
+            <div class="spacer"></div>
+            <div class="sort-icon-placeholder" *ngIf="sortable"></div>
+            <div class="sort-icon-placeholder" *ngIf="sortable"></div>
+          </div>
+          <div class="col-xs-4">
+            <div class="form-group">
+              <label for="fieldName">Field Name</label>
+              <input id="fieldName" type="text" class="form-control form-control-sm" placeholder="Type to search by field name" (keyup)="setNameString()" [(ngModel)]="fieldNameString">
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="fieldDescription">Field Description</label>
+              <input id="fieldDescription" type="text" class="form-control form-control-sm" placeholder="Type to search by description "
+                (keyup)="setDescString()" [(ngModel)]="fieldDescString">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="sortable-table-body" style="height:calc(97% - 55px);overflow:auto;width:97%;">
+        <div class="row"
+            style="padding: 8px; border-top: 1px solid #ddd; "
+            *ngFor="let field of fieldList|tableFilter:'DISPLAY_NAME':fieldNameString| tableFilter:'DESCRIPTION':fieldDescString"
+            id="{{field.ID}}">
+            <div class="col-xs-2 text-center">
+              <div class="glyphicon glyphicon-menu-hamburger sort-icon" *ngIf="sortable" ></div>
+              <div class="sort-icon-placeholder" *ngIf="sortable"></div>
+              <div class="spacer"></div>
+              <input [(ngModel)]="field.VISIBLE" type="checkbox">
+              <div class="spacer"></div>
+              <span role="button" (click)="moveUp(field.ID)"><i class="glyphicon glyphicon-arrow-up" ></i></span>
+              <span role="button" (click)="moveDown(field.ID)"><i class="glyphicon glyphicon-arrow-down"></i></span>
+            </div>
+              <div class="col-xs-4">{{field.DISPLAY_NAME}}</div>
+              <div class="col-xs-6">{{field.DESCRIPTION}}</div>
+        </div>
+      </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="closeModal(true)">Apply</button>
+  <button type="button" class="btn btn-default" (click)="closeModal(false)">Cancel</button>
+</div>

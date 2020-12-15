@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.open.medgen</groupId>
+  <artifactId>DART</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  
+  <name>DART</name>
+  
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>jbossl</id>
+      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
+  
+  <properties>
+
+    <!-- ******************** BUILD ******************** -->
+    
+    <build.environment>local-qa</build.environment>
+
+    <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <as.target.name>wildfly_custom_17</as.target.name>
+    
+    <!-- ******************** VERSIONS ******************** -->
+    
+    <version.wildfly>17.0.1.Final</version.wildfly>
+    <version.javaee>7.0</version.javaee>
+    <version.jboss-ejb3-ext-api>2.3.0.Final</version.jboss-ejb3-ext-api>
+    
+    <!-- Versions included with wildfly -->
+    <version.hibernate.core>5.3.3.Final</version.hibernate.core>
+    <version.hibernate.commons-annotations>5.0.5.Final</version.hibernate.commons-annotations>
+    <version.jackson>2.9.9</version.jackson>
+    <version.resteasy>3.7.0.Final</version.resteasy>
+    <version.apache.commons-codec>1.11</version.apache.commons-codec>
+    <version.apache.commons-lang3>3.9</version.apache.commons-lang3>
+    <version.undertow>2.0.21.Final</version.undertow>
+    
+    <!-- Version of the modules in the DART-server/src/main/resources/wildfly_files -->
+    <version.mysql.driver>8.0.18</version.mysql.driver>
+    <version.mongodb.driver>3.11.2</version.mongodb.driver>
+    
+    <!-- The following configuration is ued to build the modules for wildfly -->
+    <version.infinispan>9.4.16.Final</version.infinispan>
+    <version.infinispan.slot>ispn-9.4</version.infinispan.slot>
+    <version.hibernate.search>5.10.3.Final</version.hibernate.search>
+
+    <!-- Versions used in the loader -->
+    <version.apache.commons-io>2.6</version.apache.commons-io>
+    <version.apache.commons-csv>1.7</version.apache.commons-csv>
+    <version.apache.commons-collections4>4.4</version.apache.commons-collections4>
+    <version.commons-cli>1.4</version.commons-cli>
+    <version.htsjdk>2.21.0</version.htsjdk>
+    <version.biojava>5.3.0</version.biojava>
+
+
+    <!-- ******************** USERS  ******************** -->
+    <dart.web.classifier>local</dart.web.classifier>
+    <dart.web.server.production>false</dart.web.server.production>
+    <dart.web.server.base.url>localhost:8080</dart.web.server.base.url>
+    <dart.web.server.protocol>http</dart.web.server.protocol>
+    <dart.web.server.api.url>${dart.web.server.protocol}://${dart.web.server.base.url}/DART-API/</dart.web.server.api.url>
+    <dart.web.server.static.url>${dart.web.server.protocol}://${dart.web.server.base.url}/static/</dart.web.server.static.url>
+    <dart.web.base.href>/</dart.web.base.href>
+    <dart.server.docker.image.prefix></dart.server.docker.image.prefix>
+    
+    <dart.wildfly.admin.user>as-admin</dart.wildfly.admin.user>
+    <dart.wildfly.admin.password>as-admin-pa55sw0rd</dart.wildfly.admin.password>
+
+    <dart.mongo.admin.user>admin</dart.mongo.admin.user>
+    <dart.mongo.admin.password>admin</dart.mongo.admin.password>
+    <dart.mongo.admin.db>admin</dart.mongo.admin.db>
+    
+    <dart.mongo.user>mongoDART</dart.mongo.user>
+    <dart.mongo.password>mongoDART</dart.mongo.password>
+    <dart.mongo.server>mongo-container:27017</dart.mongo.server>
+    <dart.mongo.db>dart</dart.mongo.db>
+    <dart.mongo.query_limit>2000</dart.mongo.query_limit>
+
+    <dart.sql.admin.user>root</dart.sql.admin.user>
+    <dart.sql.admin.password>MySQL_Cemm</dart.sql.admin.password>
+    
+    <dart.sql.user>sqlDART</dart.sql.user>
+    <dart.sql.password>sql-DART-1</dart.sql.password>
+    <dart.sql.server>mysql-container:3306</dart.sql.server>
+    <dart.sql.params>serverTimezone=UTC&amp;maxAllowedPacket=67108864</dart.sql.params>
+    <dart.sql.db>dart</dart.sql.db>
+
+    <dart.application.user>DART_user</dart.application.user>
+    <dart.application.user.group>DART_group</dart.application.user.group>
+    <dart.application.user.first_name>DART</dart.application.user.first_name>
+    <dart.application.user.last_name>User</dart.application.user.last_name>
+    <dart.application.user.email>dart_user@open.medgen.org</dart.application.user.email>
+    <dart.application.user.password>changeme</dart.application.user.password>
+    
+  </properties>
+  
+  <profiles>
+    <!-- DART-Web related profiles -->
+    
+    <!-- general DART related building profiles -->
+    <profile>
+      <id>back-end</id>
+      <modules>
+        <module>DART-core</module>
+        <module>DART-API</module>
+        <module>DART-static</module>
+        <module>DART-package</module>
+        <module>DART-server</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>front-end</id>
+      <modules>
+        <module>DART-web</module>
+        <module>DART-server</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>server</id>
+      <modules>
+        <module>DART-server</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>loader</id>
+      <modules>
+        <module>DART-loader</module>        
+        <module>DART-server</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>package-docker</id>
+      <modules>
+        <module>DART-server</module>
+      </modules>
+    </profile>
+  </profiles>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-API</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-API</artifactId>
+        <version>${project.parent.version}</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-core</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-core</artifactId>
+        <version>${project.parent.version}</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-Loader</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-package</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-package</artifactId>
+        <version>${project.parent.version}</version>
+        <type>ear</type>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-server</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>${dart.web.classifier}</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-static</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>${dart.web.classifier}</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-web</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>${dart.web.classifier}</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.open.medgen</groupId>
+        <artifactId>DART-web</artifactId>
+        <version>${project.parent.version}</version>
+        <classifier>${dart.web.classifier}</classifier>
+        <type>war</type>
+      </dependency>
+      
+<!--      OTHER packages-->
+      <dependency>
+        <groupId>org.jboss.resteasy</groupId>
+        <artifactId>resteasy-jackson2-provider</artifactId>
+        <version>${version.resteasy}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jboss.resteasy</groupId>
+          <artifactId>resteasy-multipart-provider</artifactId>
+          <version>${version.resteasy}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.xml.bind</groupId>
+        <artifactId>jaxb-api</artifactId>
+        <version>2.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+        <version>${version.javaee}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>${version.javaee}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>${version.commons-cli}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${version.apache.commons-io}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${version.apache.commons-codec}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-csv</artifactId>
+        <version>${version.apache.commons-csv}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${version.apache.commons-lang3}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${version.apache.commons-collections4}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.github.samtools</groupId>
+        <artifactId>htsjdk</artifactId>
+        <version>${version.htsjdk}</version >
+      </dependency>
+      <dependency>
+        <groupId>org.biojava</groupId>
+        <artifactId>biojava-core</artifactId>
+        <version>${version.biojava}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.biojava</groupId>
+        <artifactId>biojava-genome</artifactId>
+        <version>${version.biojava}</version>
+      </dependency>
+      
+      <!-- Include the ejb client jars -->
+      <dependency>
+        <groupId>org.wildfly</groupId>
+        <artifactId>wildfly-ejb-client-bom</artifactId>
+        <version>${version.wildfly}</version>
+        <type>pom</type>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.ejb3</groupId>
+        <artifactId>jboss-ejb3-ext-api</artifactId>
+        <version>${version.jboss-ejb3-ext-api}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.fasterxml.jackson.core </groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${version.jackson}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core </groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${version.jackson}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core </groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${version.jackson}</version>
+      </dependency>
+
+      <!-- HIBERNATE -->
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-search-orm</artifactId>
+          <version>${version.hibernate.search}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-search-engine</artifactId>
+          <version>${version.hibernate.search}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${version.hibernate.core}</version>
+      </dependency>
+      
+      <!-- Needed for serialization of Hibernate mapped objects -->
+      <dependency>
+        <groupId>org.hibernate.common</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+        <version>${version.hibernate.commons-annotations}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-jpamodelgen</artifactId>
+        <version>${version.hibernate.core}</version>
+      </dependency>
+
+      <!-- INFINISPAN -->
+      <dependency>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-core</artifactId>
+        <version>${version.infinispan}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-query-dsl</artifactId>
+        <version>${version.infinispan}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-query</artifactId>
+        <version>${version.infinispan}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.infinispan</groupId>
+        <artifactId>infinispan-cachestore-jdbc</artifactId>
+        <version>${version.infinispan}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>bson</artifactId>
+        <version>${version.mongodb.driver}</version>
+      </dependency>
+
+      <!-- MONGO DB -->
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongo-java-driver</artifactId>
+        <version>${version.mongodb.driver}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mongodb</groupId>
+        <artifactId>mongodb-driver-async</artifactId>
+        <version>${version.mongodb.driver}</version>
+      </dependency>
+
+      <!-- MYSQL -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${version.mysql.driver}</version>
+      </dependency>
+      
+    </dependencies>
+  </dependencyManagement>
+  
+</project>

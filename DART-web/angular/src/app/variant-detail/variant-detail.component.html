@@ -1,0 +1,89 @@
+<tabset id="tab-menu" *ngIf="variant">
+  <tab heading="Variant" (select)="variantSelect()" (deselect)="variantDeselect()">
+    <table>
+      <tr>
+        <td>
+        <table class="var-details">
+          <tr>
+            <th nowrap>Gene</th>
+            <th nowrap>Variant</th>
+            <th nowrap>Coding Change</th>
+            <th nowrap>Protein Change</th>
+          </tr>
+          <tr>
+            <td>
+              <a title="Ensembl" target="_blank" href="{{getLink('ENSEMBL_WEB_GENE',variant['TRANSCRIPT']['CSQ:Gene'])}}">
+                {{geneDescription? geneDescription : variant['TRANSCRIPT']['CSQ:SYMBOL']}}
+              </a>
+              <br>
+              <span nowrap>
+                <a *ngIf="hgncId" title="HGNC" target="_blank" href="{{getLink('HGNC',hgncId)}}">(HGNC)</a>
+                <a *ngIf="omimId" title="OMIM" target="_blank" href="{{getLink('OMIM',omimId)}}">(OMIM)</a>
+              </span>
+            </td>
+            <td>
+              <span *ngIf="variant['TRANSCRIPT']['CSQ:MAX_AF']">
+                <a target="_blank" href="{{getLink('GNOMAD',variant['VARIANT_ID'])}}" title="gnomAD">
+                  {{variant['VARIANT_ID']}}
+                </a>
+                {{variant['SAMPLE']['GENOTYPE']['ZYGOSITY']}}
+              </span>
+              <span *ngIf="!variant['TRANSCRIPT']['CSQ:MAX_AF']">
+                {{variant['VARIANT_ID']}} {{variant['SAMPLE']['GENOTYPE']['ZYGOSITY']}}
+              </span>
+              <br/>
+              <span *ngIf="variant['TRANSCRIPT']['CSQ:CLIN_SIG'] && variant['TRANSCRIPT']['CSQ:CLIN_SIG'].length!=0 ">
+                <a  title="ClinVar" target="_blank" href="{{getLink('CLINVAR',getRsId())}}" >
+                  (ClinVar)
+                </a>
+              </span>
+            </td>
+            <td><a title="Ensembl" target="_blank" href="{{getLink('ENSEMBL_WEB_TRANSCRIPT',variant['TRANSCRIPT']['CSQ:Feature'])}}">{{variant['TRANSCRIPT']['CSQ:HGVSc']}}</a></td>
+            <td><a title="Ensembl" target="_blank" href="{{getLink('ENSEMBL_WEB_PROTEIN',variant['TRANSCRIPT']['CSQ:ENSP'])}}">{{variant['TRANSCRIPT']['CSQ:HGVSp']}}</a></td>
+          </tr>
+        </table>
+        </td>
+      </tr>
+    </table>
+
+    <div class="row" style="padding-bottom: 10px">
+      <div class="col-xs-6">
+        <app-frequency-chart [variant]="variant"></app-frequency-chart>
+      </div>
+      <div class="col-xs-6">
+        <app-impact-chart [variant]="variant"></app-impact-chart>
+      </div>
+    </div>
+    <app-lolliplot *ngIf="isOnline()" #lolliplot [vcf] ="vcf" [variant]="variant" [online]="authService.getUser()"></app-lolliplot>
+  </tab>
+
+  <tab heading="Fields">
+    <div style="width:97%;"  *ngIf="vcf">
+      <div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+        <div class="col-xs-4">
+          <div class="form-group-sm">
+            <label for="fieldName">Field Name</label>
+            <input id="fieldName" type="text" class="form-control" placeholder="Type to search by field name" [(ngModel)]="fieldNameString">
+          </div>
+        </div>
+        <div class="col-xs-4"><strong>Field Value</strong></div>
+        <div class="col-xs-4">
+          <div class="form-group-sm">
+            <label for="fieldDescription">Field Description</label>
+            <input id="fieldDescription" type="text" class="form-control" placeholder="Type to search by description " [(ngModel)]="fieldDescString">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="height:calc(97% - 55px)!important;overflow:auto;width:97%;" *ngIf="vcf">
+      <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let field of vcf.FIELDS|tableFilter:'DISPLAY_NAME':fieldNameString| tableFilter:'DESCRIPTION':fieldDescString">
+        <div class="col-xs-4">{{field.DISPLAY_NAME}}</div>
+        <div class="col-xs-4 wordwrap">{{variant|selectFieldFilter : field.FIELD_PATH}}</div>
+        <div class="col-xs-4">{{field.DESCRIPTION}}</div>
+      </div>
+    </div>
+  </tab>
+  <tab heading="Reads" (select)="igvBrowser.select()" (deselect)="igvBrowser.deselect()">
+      <app-igv #igvBrowser [vcf]="vcf" [variant]="variant"></app-igv>
+  </tab>
+</tabset>

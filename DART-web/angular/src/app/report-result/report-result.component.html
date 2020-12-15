@@ -1,0 +1,64 @@
+<div style="height: 100%">
+
+  <div id="panel" class="panel panel-default" style="margin-bottom: 10px" *ngIf="report">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-xs-3">
+          <div>
+            <strong>Report for  {{report.QUERY.SAMPLE_NAME}}</strong>
+          </div>
+        </div>
+        <div class="col-xs-5" style="text-align: center">
+          <div>
+            <span class="btn label label-success" (click)="viewResults()">
+              VARIANTS: {{report.VARIANTS}}
+            </span>
+            <span style="width: 10px;display: inline-block"></span>
+            <span class="label" [ngClass]="getCoverageColor()" (click)="viewCoverage()">
+             COVERAGE: {{report.HAS_COVERAGE? report.COVERAGE_ENTRIES: 'NOT PRESENT'}}
+            </span>
+          </div>
+        </div>
+        <div class="col-xs-4">
+          <button class="btn btn-default btn-sm pull-right" style="margin-left:20px" (click)="isQueryPanelVisible=!isQueryPanelVisible">
+            <span [ngClass]="{'glyphicon':true, 'glyphicon-minus':isQueryPanelVisible, 'glyphicon-plus':(!isQueryPanelVisible)}"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" *ngIf="isQueryPanelVisible">
+      <div class="row" style="border-bottom: 1px solid #ddd;padding-bottom: 5px;margin-bottom: 5px">
+        <div class="col-xs-12">
+          <app-variant-filter-query #queryComponent [query]="report.QUERY" [reportMode]="true"></app-variant-filter-query>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 10px">
+    <div class="col-xs-12">
+      <button class="btn btn-default pull-right" style="margin-left: 5px" type="button" (click)="exportJson()" *ngIf="variants && report">
+        <strong>{{"{;}"}}</strong>
+      </button>
+      <button class="btn btn-default pull-right" style="margin-left: 5px" type="button" (click)="variantsGrid.downloadCSV()"  *ngIf="!showCoverage">
+        <i class="glyphicon glyphicon-download-alt"></i>
+      </button>
+      <span *ngFor="let myCondition of report.CONDITIONS" class="tag label label-default pull-right" >
+            <span tooltip="{{myCondition.CODE}}">{{myCondition.LABEL}}</span>
+      </span>
+    </div>
+  </div>
+
+
+  <app-coverage-ag-grid [config]="coverageTableConfig" *ngIf="showCoverage && coverageTableConfig" ></app-coverage-ag-grid>
+  <app-variant-ag-grid
+    #variantsGrid
+    [vcf]="report.VCF_FILE"
+    [variants]="variants"
+    [cachedQuery]="report.QUERY"
+    [conditions]="report.CONDITIONS"
+    [active]="false"
+    *ngIf="!showCoverage">
+  </app-variant-ag-grid>
+
+</div>

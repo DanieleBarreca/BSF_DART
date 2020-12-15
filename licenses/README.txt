@@ -1,0 +1,2 @@
+Maven dependencies generated with the mvn project-info-reports:dependencies -Pserver,front-end,back-end,loader,package-docker command
+Angular dependencies generated with npx license-checker --csv --out ../../licenses/DART-WEB.csv --direct from the DART-web/angular path

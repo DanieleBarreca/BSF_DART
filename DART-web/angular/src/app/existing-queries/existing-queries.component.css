@@ -1,0 +1,25 @@
+::ng-deep .variant-modal {
+    width: 95%;
+}
+
+#tabsetComponent ::ng-deep.bs-remove-tab {
+  visibility: hidden;
+}
+
+#tabsetComponent ::ng-deep.bs-remove-tab:after {
+  content: "\2718";
+  cursor: pointer;
+  visibility: visible;
+}
+
+#tabsetComponent ::ng-deep.bs-remove-tab:hover {
+  color: red;
+}
+
+#tabsetComponent ::ng-deep .nav-tabs>li>a{
+  line-height: 10px;
+}
+
+#tabsetComponent ::ng-deep ul {
+  margin-bottom:10px;
+}

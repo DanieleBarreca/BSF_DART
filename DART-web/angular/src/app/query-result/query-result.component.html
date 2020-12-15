@@ -1,0 +1,34 @@
+<div style="height: 100%">
+  <app-variant-query-container #queryContainer [showButtons]=false [editableQuery]=true ></app-variant-query-container>
+
+  <div class="row" style="margin-bottom: 10px"  *ngIf="!showCoverage">
+    <div class="col-xs-12">
+      <button class="btn btn-default pull-right" style="margin-left: 5px" type="button" (click)="variantsGrid.openTableConfiguration()">
+        <i class="glyphicon glyphicon-cog"></i>
+      </button>
+      <button class="btn btn-default pull-right" style="margin-left: 5px" type="button" (click)="variantsGrid.downloadCSV()">
+        <i class="glyphicon glyphicon-download-alt"></i>
+      </button>
+      <button class="btn btn-default pull-right" style="margin-left: 5px" type="button" (click)="saveReport()" *ngIf="canSaveReport()">
+        <i class="glyphicon glyphicon-floppy-save"></i>
+      </button>
+      <app-condition-select (conditionSelected)="addCondition($event)" *ngIf="canAnnotateVariants()"></app-condition-select>
+      <span *ngFor="let myCondition of getConditions()" class="tag label label-default pull-right" >
+            <span tooltip="{{myCondition.CODE}}">{{myCondition.LABEL}}</span>
+            <a *ngIf="canAnnotateVariants()" (click)="removeCondition(myCondition.REF_ID)"><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+      </span>
+    </div>
+  </div>
+
+  <app-coverage-ag-grid [config]="coverageTableConfig" *ngIf="showCoverage && coverageTableConfig" ></app-coverage-ag-grid>
+  <app-variant-ag-grid
+    #variantsGrid
+    [vcf]="vcf"
+    [variants]="variants"
+    [cachedQuery]="cachedQueryInfo.theQuery"
+    [conditions]="cachedQueryInfo.conditions"
+    (dataChanged) = "submitResultQuery()"
+    *ngIf="!showCoverage">
+
+  </app-variant-ag-grid>
+</div>

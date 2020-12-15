@@ -1,0 +1,16 @@
+<div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">   
+  <div class="col-xs-6">
+    <div class="form-group">
+      <label for="searchName">File Name</label>
+      <input id="searchName" type="text" class="form-control form-control-sm" name="searchNameString" placeholder="Type to search ..."
+        [(ngModel)]="searchNameString">
+    </div>
+  </div>
+</div>
+<div style="height:calc(97% - 55px);overflow:auto;width:97%;">
+  <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let bed of beds|tableFilter:'fileName':searchNameString">
+    <div class="col-xs-6" style="overflow:hidden;">
+      <i role="button" class="glyphicon glyphicon-check" (click)="selectRow(bed)"></i>
+       {{bed['FILE_NAME']}}
+    </div>
+  </div>

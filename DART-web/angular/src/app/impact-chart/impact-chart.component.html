@@ -1,0 +1,10 @@
+<div style="display: block" *ngIf="variant && labels.length>0">
+  <canvas 
+    baseChart     
+    [data]="data" 
+    [labels]="labels" 
+    [options]="options"
+    legend="true" 
+    chartType="polarArea">
+  </canvas>
+</div>

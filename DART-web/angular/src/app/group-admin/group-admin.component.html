@@ -1,0 +1,66 @@
+<tabset>
+    <tab heading="Users">
+        <app-group-user-management></app-group-user-management>
+    </tab>
+    <tab heading="VCFs">
+        <app-group-vcf-management></app-group-vcf-management>
+    </tab>
+    <tab heading="BEDs">
+        <app-group-bed-management></app-group-bed-management>
+    </tab>
+    <tab heading="Panels">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-xs-12" style="border-bottom: 2px solid #40B9D4; padding: 15px 0 0 0"><span></span></div>
+        </div>
+        <div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+            <div class="col-xs-2">
+                <strong>Mnemonic</strong>
+            </div>
+            <div class="col-xs-4">
+                <strong>BED File Name</strong>
+            </div>
+            <div class="col-xs-5" style=" word-wrap: break-word;">
+                <strong>Genes</strong>
+            </div>
+            <div class="col-xs-1"></div>
+        </div>
+        <div style="height:calc(97% - 55px);overflow:auto;width:100%;">
+            <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let preset of panelPresets">
+                <div class="col-xs-2"> {{preset.MNEMONIC}}</div>
+                <div class="col-xs-4">{{preset.BED_REF_ID? preset.BED_NAME : ''}}</div>
+                <div class="col-xs-5" style="word-wrap: break-word;">{{preset.GENES}}</div>
+                <div class="col-xs-1">
+                    <button *ngIf="canEditPanel()" class="btn btn-default btn-sm pull-right" (click)="deletePanel(preset.REF_ID)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </tab>
+    <tab heading="Query Presets">
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-xs-12" style="border-bottom: 2px solid #40B9D4; padding: 15px 0 0 0"><span></span></div>
+        </div>
+        <div class="panel panel-default" style="margin-bottom:5px" *ngFor="let preset of queryPresets" #panel>
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-4"><strong>{{preset.MNEMONIC}}</strong></div>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-default btn-sm pull-right" style="margin-left:5px" (click)="panel.isQueryPanelVisible=!panel.isQueryPanelVisible">
+                            <span [ngClass]="{'glyphicon':true, 'glyphicon-minus':panel.isQueryPanelVisible, 'glyphicon-plus':(!panel.isQueryPanelVisible)}"></span>
+                        </button>
+                        <button *ngIf="canDeletePreset()" class="btn btn-default btn-sm pull-right" (click)="deletePreset(preset.REF_ID)">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body" [collapse]="!panel.isQueryPanelVisible">
+                <app-query-builder [config]="preset.config"></app-query-builder>
+            </div>
+        </div>
+    </tab>
+</tabset>

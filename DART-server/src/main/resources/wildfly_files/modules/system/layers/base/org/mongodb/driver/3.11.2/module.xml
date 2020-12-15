@@ -1,0 +1,10 @@
+<module xmlns="urn:jboss:module:1.5" name="org.mongodb.driver" slot="3.11.2">
+    <resources>
+        <resource-root path="mongo-java-driver-3.11.2.jar"/>
+        <resource-root path="mongodb-driver-async-3.11.2.jar"/>
+    </resources>
+
+    <dependencies>
+        <module name="javax.api"/>
+    </dependencies>
+</module>

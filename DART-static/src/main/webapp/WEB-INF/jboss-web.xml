@@ -1,0 +1,5 @@
+<jboss-web version="7.1" xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_7_1.xsd">
+    <context-root>/</context-root>
+    <virtual-host>dart-WEB-host</virtual-host>
+    <security-domain>DARTSecurityDomain</security-domain>
+</jboss-web>

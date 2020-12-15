@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns = "http://java.sun.com/xml/ns/javaee" 
+         version = "3.1"
+         xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
+    <module-name>${project.artifactId}</module-name>
+    <enterprise-beans>
+        <session>
+            <ejb-name>MongoClientProvider</ejb-name>
+            <env-entry>
+                <description>The connection string to MongoDB</description>
+                <env-entry-name>mongoUrl</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>mongodb://${as.dart.mongo.user}:${as.dart.mongo.password}@${as.dart.mongo.server}/${as.dart.mongo.db}?maxPoolSize=10</env-entry-value>
+            </env-entry>
+            <env-entry>
+                <description>The query limit</description>
+                <env-entry-name>queryLimit</env-entry-name>
+                <env-entry-type>java.lang.Integer</env-entry-type>
+                <env-entry-value>${as.dart.mongo.query_limit}</env-entry-value>
+            </env-entry>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

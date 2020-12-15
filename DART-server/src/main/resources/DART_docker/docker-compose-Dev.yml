@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+  
+  mongo-container:
+    image: mongo:3.6
+    restart: always
+    container_name: dart-mongo-DEV
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${dart.mongo.admin.user}
+      MONGO_INITDB_ROOT_PASSWORD: ${dart.mongo.admin.password}
+      DART_MONGO_ADMIN_DB: ${dart.mongo.admin.db}
+      DART_MONGO_USER: ${dart.mongo.user}
+      DART_MONGO_PWD: ${dart.mongo.password}
+    volumes:
+      - "../DART_install/DATA/mongo/setup/:/docker-entrypoint-initdb.d/"
+    ports:
+       - 127.0.0.1:27017:27017
+
+  mysql-container:
+    image: mysql:5.7
+    restart: always
+    container_name: dart-mysql-DEV
+    command: [--max_allowed_packet=67108864]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${dart.sql.admin.password}
+      MYSQL_USER: ${dart.sql.user}
+      MYSQL_PASSWORD: ${dart.sql.password}
+      MYSQL_DATABASE: ${dart.sql.db}
+    volumes:
+      - "./DART_install/DATA/mysql/setup/:/docker-entrypoint-initdb.d"
+    ports:
+      - 127.0.0.1:3306:3306

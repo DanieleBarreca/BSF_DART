@@ -1,0 +1,263 @@
+<div>
+    <div *ngIf="isVCFSectionCollapsed || !active" style="border-bottom: 1px solid #ddd;padding-bottom: 5px" class="row-spaced">
+      <div class="row">
+        <div class="col-xs-10">
+            <strong> SAMPLE: {{(query && query.SAMPLE_NAME) ? query.SAMPLE_NAME : ''}}</strong> {{(query && query.VCF_NAME) ? '('+query.VCF_NAME+')' : ''}}
+        </div>
+        <div class="col-xs-2" *ngIf="active">
+            <button style="border:none"  class="btn btn-default btn-sm pull-right" (click)="isVCFSectionCollapsed=!isVCFSectionCollapsed">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+        </div>
+      </div>
+
+      <div [hidden]="query.RELATED_SAMPLES.length == 0">
+        <div class="row row-spaced" >
+
+          <div class="col-xs-2" >
+            <span><strong>RELATED SAMPLE</strong></span>
+          </div>
+
+          <div class="col-xs-1">
+            <span><strong>AFFECTED</strong></span>
+          </div>
+
+          <div class="col-xs-1" >
+            <span><strong>SEX</strong></span>
+          </div>
+
+          <div class="col-xs-8" >
+          </div>
+
+        </div>
+
+        <div class="row" *ngFor="let item of query.RELATED_SAMPLES;">
+
+          <div class="col-xs-2" >
+            <strong>{{item.SAMPLE}}</strong>
+          </div>
+
+          <div class="col-xs-1">
+            <span>{{item.AFFECTED}}</span>
+          </div>
+
+          <div class="col-xs-1" >
+            <span>{{item.SEX}}</span>
+          </div>
+
+          <div class="col-xs-8" >
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="active" [collapse]="isVCFSectionCollapsed" style="border-bottom: 1px solid #ddd" class="row-spaced">
+        <div class="row row-spaced">
+            <div class="col-xs-1">
+                <button *ngIf="active" class="btn btn-default btn-sm" (click)="openModal(sampleSelectModal)">Select Sample</button>
+            </div>
+            <div class="col-xs-10">
+              <strong> {{(query && query.SAMPLE_NAME) ? query.SAMPLE_NAME : ''}}</strong> {{(query && query.VCF_NAME) ? '('+query.VCF_NAME+')' : ''}}
+            </div>
+            <div class="col-xs-1">
+                <button style="border:none"  class="btn btn-default btn-sm pull-right" (click)="isVCFSectionCollapsed=!isVCFSectionCollapsed">
+                    <i class="glyphicon glyphicon-minus"></i>
+                </button>
+            </div>
+        </div>
+
+      <div [hidden]="vcfHeader == null || vcfHeader['VCF_TYPE']!='GERMLINE'">
+        <div class="row row-spaced" >
+
+          <div class="col-xs-2" >
+            <span><strong>RELATED SAMPLE</strong></span>
+          </div>
+
+          <div class="col-xs-1">
+            <span><strong>AFFECTED</strong></span>
+          </div>
+
+          <div class="col-xs-1" >
+            <span><strong>SEX</strong></span>
+          </div>
+
+          <div class="col-xs-8" >
+          </div>
+
+        </div>
+
+        <div class="row" *ngFor="let item of query.RELATED_SAMPLES; index as i;">
+
+          <div class="col-xs-2" >
+            <select id="other-sample-{{i}}" #otherSamplesSelectizeEl></select>
+          </div>
+
+          <div class="col-xs-1">
+            <input type="checkbox" [(ngModel)]="item.AFFECTED">
+            <span>Affected</span>
+          </div>
+
+          <div class="col-xs-1" >
+            <select id="other-sample-sex-{{i}}" #otherSamplesSexSelectizeEl></select>
+          </div>
+
+          <div class="col-xs-8" >
+          </div>
+
+        </div>
+
+        <div class="row" *ngIf="canAddOtherSample()" style="margin-bottom: 10px">
+          <div class="col-xs-12">
+            <button class="btn btn-default" (click)="addOtherSample()" style="font-size: 15px">
+              <i style="color:#40B9D4" class="glyphicon glyphicon-plus"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row" *ngIf="vcfHeader!=null">
+        <div class="col-xs-12">
+            <span class="pull-left">
+              <strong>Panel </strong>
+            </span>
+            <span *ngIf="query.PANEL.REF_ID !=null" class="label label-primary" style="margin-left: 4px">
+              {{query.PANEL.MNEMONIC}}
+            </span>
+            <span *ngIf="query.PANEL.REF_ID ==null" class="label label-warning" style="margin-left: 4px">NO PRESET</span>
+            <button style="border:none" class="btn btn-default btn-sm pull-right" (click)="isBEDSectionCollapsed=!isBEDSectionCollapsed">
+                <i *ngIf="isBEDSectionCollapsed" class="glyphicon glyphicon-plus"></i>
+                <i *ngIf="!isBEDSectionCollapsed" class="glyphicon glyphicon-minus"></i>
+            </button>
+            <div class="btn-group pull-left" *ngIf="!isBEDSectionCollapsed && active">
+                <button [disabled]="query.PANEL.REF_ID!=null"
+
+                        style="border: none"
+                        class="btn btn-default btn-sm "
+                        tooltip="Save panel preset" placement="right"
+                        (click)="savePanelModal()"
+                        *ngIf="canSavePanel()">
+                    <i class="glyphicon glyphicon-heart"></i>
+                </button>
+                <button style="border: none" class="btn btn-default btn-sm " tooltip="Load panel preset" placement="right" (click)="loadPanelModal()">
+                    <i class="glyphicon glyphicon-open"></i>
+                </button>
+                <button  style="border: none" class="btn btn-default btn-sm " tooltip="New panel preset" placement="right" (click)="setNewPanel()" *ngIf="canSavePanel()">
+                    <i class="glyphicon glyphicon-file"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="(!isBEDSectionCollapsed && (!active || !canSavePanel()))"  style="border-bottom: 1px solid #ddd;padding-bottom: 5px">
+      <div class="row" *ngIf="query.PANEL.BED_REF_ID">
+        <div class="col-xs-12">
+            {{query.PANEL.BED_NAME}}
+        </div>
+      </div>
+      <div class="row" *ngIf="query.PANEL.GENES && query.PANEL.GENES.length!=0">
+        <div class="col-xs-12" style="overflow-wrap: break-word;">
+          <span *ngFor="let gene of query.PANEL.GENES" class="label label-default" style="background-color: lightgray; margin-left: 2px">{{gene}}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="active && canSavePanel()" [collapse]="isBEDSectionCollapsed" style="border-bottom: 1px solid #ddd" class="row-spaced">
+
+        <div class="row row-spaced" *ngIf="vcfHeader!=null">
+            <div class="col-xs-1">
+                <button class="btn btn-default btn-sm" (click)="openModal(bedSelectModal)">Select BED</button>
+            </div>
+            <div class="col-xs-10">
+                <strong> {{ (query && query.PANEL.BED_NAME) ? query.PANEL.BED_NAME : ''}}</strong>
+                <a role="button" *ngIf="query.PANEL.BED_REF_ID" style="color:#d9534f" (click)="resetBedFile()">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="row row-spaced">
+            <div class="col-xs-1">
+                <strong>GENES</strong>
+                <i class="glyphicon glyphicon-info-sign" tooltip="Genes in addition to BED regions" style="color: cornflowerblue" placement="bottom"></i>
+                <strong> : </strong>
+            </div>
+            <div class="col-xs-11">
+                <select id="genesSelectize" [hidden]="vcfHeader==null" #genesSelectize></select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngIf="query.VCF_REF_ID!=null" class="col-xs-12">
+            <span class="pull-left">
+              <strong>Filter</strong>
+            </span>
+            <span *ngIf="query.FILTER.REF_ID != null" class="label label-primary" style="margin-left: 4px">
+              {{query.FILTER.MNEMONIC}}
+            </span>
+            <span *ngIf="query.FILTER.REF_ID ==null" class="label label-warning" style="margin-left: 4px">NO PRESET</span  >
+            <button style="border:none" class="btn btn-default btn-sm pull-right" (click)="isQuerySectionCollapsed=!isQuerySectionCollapsed">
+                <i *ngIf="isQuerySectionCollapsed" class="glyphicon glyphicon-plus"></i>
+                <i *ngIf="!isQuerySectionCollapsed" class="glyphicon glyphicon-minus"></i>
+            </button>
+            <div *ngIf="!isQuerySectionCollapsed && active" class="btn-group pull-left">
+                <button [disabled]="query.FILTER.REF_ID!=null"
+                        style="border: none" class="btn btn-default btn-sm "
+                    tooltip="Save filter preset"
+                    placement="right" (click)="savePresetModal()" *ngIf="canSavePreset()">
+                    <i class="glyphicon glyphicon-heart"></i>
+                </button>
+                <button [disabled]="!active" style="border: none"
+                    class="btn btn-default btn-sm " tooltip="Load filter preset" placement="right" (click)="loadPresetModal()">
+                    <i class="glyphicon glyphicon-open"></i>
+                </button>
+                <button  [disabled]="!active" style="border: none"
+                    class="btn btn-default btn-sm " tooltip="New filter preset" placement="right" (click)="setNewFilter()" *ngIf="canSavePreset()">
+                    <i class="glyphicon glyphicon-file"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row" [collapse]="isQuerySectionCollapsed">
+        <div class="col-xs-12">
+            <app-query-builder #queryBuilder [config]="queryBuilderConfig"></app-query-builder>
+        </div>
+    </div>
+</div>
+
+<ng-template #sampleSelectModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Select Sample</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="height: calc(100vh - 165px)">
+        <app-vcf-table (vcfSelected)="setSampleVcf($event)"></app-vcf-table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #bedSelectModal>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Select BED File</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" style="height: calc(100vh - 171px)">
+        <app-bed-table (bedSelected)="setBedFile($event)" [genome]="vcfHeader['REF_GENOME']"></app-bed-table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()" >Close</button>
+    </div>
+</ng-template>

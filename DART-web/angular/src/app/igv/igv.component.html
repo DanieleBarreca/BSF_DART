@@ -1,0 +1,6 @@
+<div class="row" *ngIf="canShowLocalIGV()">
+  <div class="col col-xs-12">
+    <a href="http://localhost:{{localIGVport}}/load?{{localIgvFilesOptions}}&{{localIgvLocus}}">Open in local IGV</a>
+  </div>
+</div>
+<div id="igv_container" style="width:100%;height:100%"></div>

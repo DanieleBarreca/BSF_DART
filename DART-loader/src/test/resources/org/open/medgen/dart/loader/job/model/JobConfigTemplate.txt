@@ -1,0 +1,2 @@
+SAMPLE	SAMPLE_ALIAS	INCLUDE	VCF_URL	BAM_URL	COVERAGE_TRACK_URL	COVERAGE_FILE
+*	ALIAS_TEST	true	test-{sample}-vcf	test-{sample}-bam	test-{sample}-track	test-{sample}-coverage

@@ -1,0 +1,54 @@
+<div id="panel" class="panel panel-default" style="margin-bottom: 10px">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-3">
+                <div>
+                    <strong> {{cachedQueryInfo ? cachedQueryInfo.theQuery.SAMPLE_NAME : '' }}</strong>
+                    <span>{{cachedQueryInfo ? '('+cachedQueryInfo.lastAccessed+')' : ''}}</span>
+                </div>
+            </div>
+            <div class="col-xs-5" style="text-align: center">
+                <div>
+                    <span>Count: </span>
+                    <span class="label" [ngClass]="getCountColor()" [tooltip]="getCountMessage()">
+                      {{ cachedQueryInfo ? cachedQueryInfo.countStatus : 'NOT RUNNING'}} {{totalCount!=null? totalCount : ''}}
+                    </span>
+                    <span style="width: 10px;display: inline-block"></span>
+                    <span>Variants: </span>
+                    <span class="label" [ngClass]="getVariantColor()" (click)="viewResults()" ng-disabled= "canSeeVariants() == false"  [tooltip]="getVariantMessage()">
+                      {{ cachedQueryInfo ? cachedQueryInfo.resultStatus : 'NOT RUNNING' }} {{(canSeeVariants())? queryCount : ''}}
+                    </span>
+                    <span style="width: 10px;display: inline-block"></span>
+                    <span>Coverage: </span>
+                    <span class="label" [ngClass]="getCoverageColor()" (click)="viewCoverage()" ng-disabled= "canSeeCoverage() == false" [tooltip]="getCoverageMessage()">
+                      {{ cachedQueryInfo ? cachedQueryInfo.coverageStatus : 'NOT RUNNING' }} {{coverageCount!=null? coverageCount : ''}}
+                    </span>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <button class="btn btn-default btn-sm pull-right" style="margin-left:20px" (click)="isQueryPanelVisible=!isQueryPanelVisible">
+                    <span [ngClass]="{'glyphicon':true, 'glyphicon-minus':isQueryPanelVisible, 'glyphicon-plus':(!isQueryPanelVisible)}"></span>
+                </button>
+                <div *ngIf="showButtons" class="btn-group pull-right" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default btn-sm" (click)="delete()" *ngIf="isLinkedUUID()">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        <span style="margin-left:5px">Delete</span>
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" (click)="copy()" *ngIf="isLinkedUUID()">
+                        <i class="glyphicon glyphicon-paste"></i>
+                        <span style="margin-left:5px">Copy</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" *ngIf="isQueryPanelVisible">
+        <div class="row" style="border-bottom: 1px solid #ddd;padding-bottom: 5px;margin-bottom: 5px">
+            <div class="col-xs-12">
+                <app-variant-filter-query #queryComponent [query]="cachedQueryInfo ? cachedQueryInfo.theQuery : null" [active]="editableQuery && !queryRunning"></app-variant-filter-query>
+            </div>
+        </div>
+        <button *ngIf="editableQuery && !queryRunning" type="button" class="btn btn-default btn-sm btn-success" (click)="submit()">Execute</button>
+    </div>
+</div>

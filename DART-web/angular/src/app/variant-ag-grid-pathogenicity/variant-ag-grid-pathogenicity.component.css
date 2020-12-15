@@ -1,0 +1,53 @@
+.label-ACMG_AMP_GERMLINE-1 {
+  background-color: #d9534f;
+  border-color: darkred !important;
+}
+
+.label-ACMG_AMP_GERMLINE-2 {
+  background-color: orange;
+  border-color: darkorange !important;
+}
+
+
+.label-ACMG_AMP_GERMLINE-4 {
+  background-color: dodgerblue;
+  border-color: darkblue !important;
+}
+
+.label-ACMG_AMP_GERMLINE-5 {
+  background-color: limegreen;
+  border-color: darkgreen !important;
+}
+
+.add-annotation {
+  width: 15px;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  margin-right: 5px;
+  color:darkgrey;
+}
+
+.add-annotation i {
+  color:darkgrey;
+}
+
+.add-annotation i:hover{
+  color: black;
+}
+
+.annotation-label {
+  opacity: 0.4 ;
+  border-color: #555;
+}
+
+
+.selected-condition {
+  opacity: 1.0;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}

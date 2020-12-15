@@ -1,0 +1,67 @@
+<div class="row" style="margin-bottom: 10px">
+  <div class="col-xs-12" style="border-bottom: 2px solid #40B9D4; padding: 15px 0 0 0"><span></span></div>
+</div>
+<div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-4">
+    <div class="form-group">
+      <label for="searchName">File Name</label>
+      <input id="searchName" type="text" class="form-control form-control-sm" name="searchNameString" placeholder="Type to search ..."
+        [(ngModel)]="searchNameString">
+    </div>
+  </div>
+  <div class="col-xs-1"><strong>Date</strong></div>
+  <div class="col-xs-1"><strong>Status</strong></div>
+  <div class="col-xs-1"><strong>Type</strong></div>
+  <div class="col-xs-2">
+    <div class="form-group">
+      <label for="searchSample">Samples</label>
+      <input id="searchSample" type="text" class="form-control form-control-sm" name="searchSampleString" placeholder="Type to search ..."
+        [(ngModel)]="searchSampleString">
+    </div>
+  </div>
+  <div class="col-xs-2"><strong>MD5</strong></div>
+</div>
+<div style="height:calc(97% - 55px);overflow:auto;width:97%;" *ngIf="vcfs">
+  <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let vcf of vcfs|tableFilter:'VCF_FILE':searchNameString| tableFilter:'SAMPLE_NAMES':searchSampleString">
+    <ng-template #popTemplate>
+      <ul class="list-group list-group-flush" style="max-height:400px; overflow-y:scroll">
+        <li *ngFor="let sample of vcf.SAMPLE_NAMES" class="list-group-item">{{sample}}</li>
+      </ul>
+    </ng-template>
+    <ng-template #msgTemplate>
+      <ul class="list-group list-group-flush" style="max-height:400px; overflow-y:scroll">
+        <li *ngFor="let message of vcf.MESSAGES" class="list-group-item">{{message}}</li>
+      </ul>
+    </ng-template>
+    <ng-template #descTemplate>
+      <div [innerHtml]="vcf.PIPELINE_DESCRIPTION"></div>
+    </ng-template>
+
+    <div class="col-xs-1">
+      <span class="pull-right"><i class="glyphicon glyphicon-info-sign" [tooltip]="descTemplate" placement="right"
+          container="body"></i></span>
+      <span *ngIf="canDeleteVCF(vcf)" class="pull-right" style="margin-right:5px">
+        <i class="glyphicon glyphicon-remove" style="color:red" (click)="removeVCF(vcf)"></i>
+      </span>
+    </div>
+    <div class="col-xs-4" style="overflow:hidden;"> {{vcf.VCF_FILE}}</div>
+    <div class="col-xs-1">{{vcf.CREATION_DATE | date:shortDate}}</div>
+    <div class="col-xs-1" container='body' placement='left' popoverTitle="Messages" [popover]="msgTemplate"
+      [outsideClick]="true">
+      <a role="button" [ngClass]="[vcf.STATUS+'-color','label']">
+        {{vcf.STATUS}}
+      </a>
+    </div>
+    <div class="col-xs-1">{{vcf.VCF_TYPE}}</div>
+    <div class="col-xs-2">
+      <ul style="list-style-type:none" container='body' placement='left' popoverTitle="Samples ({{vcf.SAMPLES.length}})"
+        [popover]="popTemplate" [outsideClick]="true">
+        <li *ngFor="let sample of vcf.SAMPLE_NAMES|slice:0:3; let i=index">
+          <div *ngIf="i<2">{{sample}}</div>
+          <div *ngIf="i==2">...</div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-2">{{vcf.MD5}}</div>
+  </div>

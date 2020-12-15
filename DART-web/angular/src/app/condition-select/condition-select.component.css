@@ -1,0 +1,22 @@
+.selectize-container {
+  font-size: smaller;
+  text-align: left;
+}
+
+.centered-label{
+  width: 100%;
+  text-align: center;
+}
+
+.add-condition {
+  top: calc(50% - 16px);
+  position: relative;
+  color:darkgrey;
+}
+.add-condition i:hover{
+  color: black;
+}
+
+.fa {
+  font-size: 18px;
+}

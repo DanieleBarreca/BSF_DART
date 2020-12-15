@@ -1,0 +1,76 @@
+version: '3.1'
+services:
+  
+  dart-server:
+    image: ${dart.docker.name}
+    container_name: dart-server
+    environment:
+      DART_WILDFLY_ADMIN_USER: ${DART_WILDFLY_ADMIN_USER}
+      DART_WILDFLY_ADMIN_PWD: ${DART_WILDFLY_ADMIN_PWD}
+      DART_MONGO_USER: ${DART_MONGO_USER}
+      DART_MONGO_PWD: ${DART_MONGO_PWD}
+      DART_MONGO_SERVER: ${DART_MONGO_SERVER}
+      DART_MONGO_DB: ${DART_MONGO_DB}
+      DART_MONGO_QUERY_LIMIT: ${DART_MONGO_QUERY_LIMIT}
+      DART_SQL_USER: ${DART_SQL_USER}
+      DART_SQL_PWD: ${DART_SQL_PWD}
+      DART_SQL_SERVER: ${DART_SQL_SERVER}
+      DART_SQL_DB: ${DART_SQL_DB}
+      DART_SQL_PARAMS: ${DART_SQL_PARAMS}
+      DART_LOADER_USER: ${DART_LOADER_USER}
+      DART_LOADER_PASSWORD: ${DART_LOADER_PASSWORD}
+      DART_LOADER_GROUP: ${DART_LOADER_GROUP}
+#      JAVA_OPTS: "-server -Xms64m -Xmx5461m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true"
+    ports:
+      - 8080:8080
+      - 9990:9990
+    depends_on:
+      - mongo-container
+      - mysql-container
+    links:
+      - mongo-container
+      - mysql-container
+    networks:
+      - dart-net
+    volumes:
+      - "./DATA/projects:/opt/jboss/wildfly/static-content"
+      - "./DATA/log:/opt/jboss/wildfly/standalone/log"
+    
+  mongo-container:
+    image: mongo:3.6
+    restart: always
+    container_name: dart-mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DART_MONGO_ADMIN_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DART_MONGO_ADMIN_PWD}
+      DART_MONGO_ADMIN_DB: ${DART_MONGO_ADMIN_DB}
+      DART_MONGO_USER: ${DART_MONGO_USER}
+      DART_MONGO_PWD: ${DART_MONGO_PWD}
+    volumes:
+      - "./DATA/mongo/setup/:/docker-entrypoint-initdb.d/"
+      - "./DATA/mongo/data:/data/db"
+    networks:
+      - dart-net
+#    ports:
+#       - 127.0.0.1:27017:27017
+
+  mysql-container:
+    image: mysql:5.7
+    restart: always
+    container_name: dart-mysql
+    command: [--max_allowed_packet=67108864]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DART_SQL_ADMIN_PWD}
+      MYSQL_USER: ${DART_SQL_USER}
+      MYSQL_PASSWORD: ${DART_SQL_PWD}
+      MYSQL_DATABASE: ${DART_SQL_DB}
+    volumes:
+      - "./DATA/mysql/setup/:/docker-entrypoint-initdb.d"
+      - "./DATA/mysql/data:/var/lib/mysql"
+    networks:
+      - dart-net
+#    ports:
+#      - 127.0.0.1:3306:3306
+
+networks:
+  dart-net:

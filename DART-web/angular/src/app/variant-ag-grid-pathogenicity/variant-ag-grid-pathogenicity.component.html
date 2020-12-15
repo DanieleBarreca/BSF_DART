@@ -1,0 +1,29 @@
+
+<div class="row" >
+  <div class="col-xs-12">
+  <div class="btn add-annotation" (click)="addAnnotation()" *ngIf="canAddAnnotation()">
+    <i class="glyphicon glyphicon-plus"></i>
+  </div>
+  <div style="width: calc(100% - 15px); display: inline-block">
+
+    <div *ngFor="let dbAnnotation of params.value" >
+        <div class="btn add-annotation" (click)="addAnnotation(dbAnnotation)" *ngIf="canAnnotateVariants() && isActiveCondition(dbAnnotation['CONDITION']['REF_ID'])">
+          <i class="glyphicon glyphicon-pencil"></i>
+        </div>
+        <div style="display: inline-block; width: 15px; margin-right: 5px" *ngIf="canAnnotateVariants() && hasAnnotation() && !isActiveCondition(dbAnnotation['CONDITION']['REF_ID'])">
+
+        </div>
+        <span class="label label-default annotation-label label-{{dbAnnotation['ANNOTATION']['TYPE']}}-{{dbAnnotation['ANNOTATION']['RANK']}} "
+              [class.selected-condition]="isActiveCondition(dbAnnotation['CONDITION']['REF_ID'])"
+              tooltip="created by {{dbAnnotation['ANNOTATION_USER']}}"
+              container="body"
+              placement="right">
+          {{dbAnnotation['ANNOTATION']['LABEL']}} - {{dbAnnotation['INHERITANCE']['LABEL']}}
+        </span>
+        <span style="margin-left: 2px">
+          {{dbAnnotation['CONDITION']['LABEL']}} ({{dbAnnotation['CONDITION']['CODE']}} )
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

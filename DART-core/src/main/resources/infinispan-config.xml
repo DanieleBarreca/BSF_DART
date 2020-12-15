@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infinispan 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:infinispan:config:9.4 http://www.infinispan.org/schemas/infinispan-config-9.4.xsd"
+    xmlns="urn:infinispan:config:9.4">
+    
+   <cache-container name="dart" default-cache="queries">
+        <local-cache name="queries" statistics="true">
+            <persistence passivation="false">
+                <string-keyed-jdbc-store 
+                        xmlns="urn:infinispan:config:store:jdbc:9.4" shared="false" fetch-state="true" read-only="false" purge="false">
+                    <data-source jndi-url="java:/DART" />
+                    <string-keyed-table drop-on-exit="false" create-on-start="true" prefix="CACHE">
+                        <id-column name="ID" type="VARCHAR(255)" />
+                        <data-column name="DATA" type="LONGBLOB" />
+                        <timestamp-column name="TIMESTAMP" type="BIGINT" />
+                    </string-keyed-table>
+                  
+                </string-keyed-jdbc-store>
+            </persistence>
+          
+            <memory>
+                <object size="1000" strategy="REMOVE" />
+            </memory>
+            <indexing index="LOCAL">
+                <indexed-entities>
+                    <indexed-entity>org.open.medgen.dart.core.model.cache.CachedQuery</indexed-entity>
+                </indexed-entities>
+            </indexing>
+      </local-cache>
+   </cache-container>
+</infinispan>

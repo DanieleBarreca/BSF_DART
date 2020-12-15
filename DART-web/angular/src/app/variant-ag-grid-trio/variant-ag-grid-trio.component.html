@@ -1,0 +1,9 @@
+<div *ngIf="annotation">
+  <div class="row" >
+    <div class="col-xs-6" style="text-align: right" [class.affected]="annotation['RELATED_SAMPLE_AFFECTED']">
+      <span>{{annotation['RELATED_SAMPLE_ZYGOSITY']}}</span>
+      <span *ngIf="annotation['RELATED_SAMPLE_SEX']=='F'"> (&#9792;)</span>
+      <span *ngIf="annotation['RELATED_SAMPLE_SEX']=='M'"> (&#9794;)</span>
+    </div>
+  </div>
+</div>

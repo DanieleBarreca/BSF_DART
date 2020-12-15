@@ -1,0 +1,37 @@
+@font-face {
+    font-family: cemmBold;
+    src: url(/assets/fonts/sys700-webfont.woff) format('woff');         
+}
+
+@font-face {
+    font-family: cemmBook;
+    src: url(/assets/fonts/sys300-webfont.woff) format('woff');         
+}
+
+::ng-deep .selectize-dropdown {
+    z-index: 9999 !important;
+}
+
+::ng-deep .wide-modal {
+    width: 90%;
+}
+.brand {
+    float: left;
+    padding: 15px 15px;
+    font-size: 35px;
+    font-family: 'cemmBold';
+    color: #40B9D4;
+    vertical-align: middle;
+    text-decoration: none;    
+    line-height: 50%;
+}
+
+.brand a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */      
+}
+
+.brand span {
+    font-family: 'cemmBook';
+    margin: 0 2px;
+}

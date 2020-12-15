@@ -1,0 +1,38 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+           <div class="brand" style="margin-left: 0px"><a href="/" role="button">DART</a></div>
+        </div>
+        <div >
+            <ul class="nav navbar-nav">
+                <li><a role="button" (click)="router.navigate(['/report-viewer'])"><i class="glyphicon glyphicon-open-file" style="color:#40B9D4"></i> Viewer</a></li>
+                <li *ngIf="canViewQueries()"><a role="button" (click)="router.navigate(['/'])"><i class="glyphicon glyphicon-search" style="color:#40B9D4"></i> Queries</a></li>
+                <li *ngIf="canViewQueries()"><a role="button" (click)="router.navigate(['/reports'])"><i class="glyphicon glyphicon-file" style="color:#40B9D4"></i> Reports</a></li>
+                <li *ngIf="canAdminGroup()"><a role="button" (click)="router.navigate(['/group-admin'])"><i class="glyphicon glyphicon-cog" style="color:#40B9D4"></i> Group Admin</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" *ngIf="loggedIn()">
+                <li class="dropdown" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="glyphicon glyphicon-user" style="color:#40B9D4"></i>
+                        <strong>{{authService.getUser()}}</strong> ({{authService.getUserGroup()}})
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+
+                        <li class="dropdown-header">Groups</li>
+                        <li *ngFor="let group of authService.getUserGroups()">
+                            <a role="button" (click)="setUserGroup(group)">{{group}} <i *ngIf="group==authService.getUserGroup()" class="glyphicon glyphicon-ok small"></i></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a role="button" (click)="showUserInfo()">User Info</a></li>
+                        <li><a role="button" (click)="showChangePassword()">Change Password</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a role="button" (click)="logout()">Logout</a></li>
+                    </ul>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" style="height: calc(100vh - 72px)">
+    <router-outlet></router-outlet>
+</div>

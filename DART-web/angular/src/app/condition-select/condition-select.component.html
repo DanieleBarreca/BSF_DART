@@ -1,0 +1,18 @@
+<div class="btn-group  pull-right" dropdown [insideClick]="true" (onShown)="init()" #dropdown="bs-dropdown">
+  <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+    <i class="fa fa-stethoscope" style="padding-right: 2px"></i><span class="caret" ></span>
+  </button>
+  <div *dropdownMenu class="row dropdown-menu" style="width: 700px; padding-bottom: 2px;" role="menu" >
+    <div class="col-xs-3 selectize-container" >
+      <select id="selectDictionary" #selectDictionary ></select>
+    </div>
+    <div class="col-xs-8 selectize-container">
+      <select id="selectTerm" #selectTerm [hidden]="!selectedDictionary" ></select>
+    </div>
+    <div class="col-xs-1" style="height: 32px">
+      <div class="btn add-condition" *ngIf="selectedCondition" (click)="dropdown.hide();emitCondition()">
+        <i class="glyphicon glyphicon-plus"></i>
+      </div>
+    </div>
+  </div>
+</div>

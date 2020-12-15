@@ -1,0 +1,14 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <sub-deployment name="${project.parent.artifactId}-core-${project.parent.version}.jar">
+        <dependencies>
+            <module name="org.apache.commons.codec"></module>
+            <module name="org.apache.commons.lang3"></module>
+            <module name="org.infinispan" slot="${version.infinispan.slot}" services="import"></module>
+            <module name="org.infinispan.query" slot="${version.infinispan.slot}" services="import"></module>
+            <module name="org.infinispan.query.dsl" slot="${version.infinispan.slot}"></module>
+            <module name="org.infinispan.persistence.jdbc" slot="${version.infinispan.slot}"></module>
+            <module name="org.hibernate.orm" slot="${version.hibernate.core}"></module>
+            <module name="org.mongodb.driver" slot="3.11.2"></module>        
+        </dependencies>
+    </sub-deployment>
+</jboss-deployment-structure>

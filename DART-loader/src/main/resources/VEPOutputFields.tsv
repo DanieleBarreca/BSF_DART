@@ -1,0 +1,105 @@
+FieldName	FieldType	FieldNumber	FieldDescription
+Allele	String	1	Allele - the variant allele used to calculate the consequence
+Consequence	String	.	Consequence - consequence type of this variant
+IMPACT	String	1	IMPACT - the impact modifier for the consequence type
+SYMBOL	String	1	SYMBOL - the gene symbol
+Gene	String	1	Gene - Ensembl stable ID of affected gene
+Feature_type	String	1	Feature type - type of feature. Currently one of Transcript RegulatoryFeature, MotifFeature.
+Feature	String	1	Feature - Ensembl stable ID of feature
+BIOTYPE	String	1	BIOTYPE - Biotype of transcript or regulatory feature
+EXON_AFFECTED	String	1	EXON_AFFECTED - the exon where variant is located
+EXON_TOTAL	String	1	EXON_TOTAL - the total number of exons
+INTRON_AFFECTED	String	1	INTRON_AFFECTED - the intron number where variant is located
+INTRON_TOTAL	String	1	INTRON_TOTAL - the total number of introns
+HGVSc	String	1	HGVSc - the HGVS coding sequence name
+HGVSp	String	1	HGVSp - the HGVS protein sequence name
+cDNA_position_start	Integer	1	Position in cDNA - relative position of base pair in cDNA sequence (start)
+cDNA_position_end	Integer	1	Position in cDNA - relative position of base pair in cDNA sequence (end)
+CDS_position_start	Integer	1	Position in CDS - relative position of base pair in coding sequence (start)
+CDS_position_end	Integer	1	Position in CDS - relative position of base pair in coding sequence (end)
+Protein_position_start	Integer	1	Position in protein - relative position of amino acid in protein (start)
+Protein_position_end	Integer	1	Position in protein - relative position of amino acid in protein (end)
+Amino_acids	String	1	Amino acid change - only given if the variant affects the protein-coding sequence
+Codons	String	1	Codon change - the alternative codons with the variant base in upper case
+Existing_variation	String	.	Co-located variation - known identifier of existing variant
+ALLELE_NUM	Integer	1	ALLELE_NUM - Allele number from input; 0 is reference 1 is first alternate etc
+DISTANCE	Integer	1	DISTANCE - Shortest distance from variant to transcript
+STRAND	Integer	1	STRAND - the DNA strand (1 or -1) on which the transcript/feature lies
+FLAGS	String	.	FLAGS - transcript quality flags:cds_start_NF: CDS 5' incomplete:cds_end_NF: CDS 3' incomplete
+VARIANT_CLASS	String	1	VARIANT_CLASS - Sequence Ontology variant class
+SYMBOL_SOURCE	String	1	SYMBOL_SOURCE - the source of the gene symbol
+HGNC_ID	String	1	HGNC_ID - HUGO Gene Nomenclature Committee identifier
+CANONICAL	Flag	1	CANONICAL - a flag indicating if the transcript is denoted as the canonical transcript for this gene
+TSL	String	1	TSL - Transcript support level. NB: not available for GRCh37
+APPRIS	String	1	APPRIS - Annotates alternatively spliced transcripts as primary or alternate based on a range of computational methods. NB: not available for GRCh37
+CCDS	String	1	CCDS - the CCDS identifer for this transcript where applicable
+ENSP	String	1	ENSP - the Ensembl protein identifier of the affected transcript
+SWISSPROT	String	.	SWISSPROT - Best match UniProtKB/Swiss-Prot accession of protein product
+TREMBL	String	.	TREMBL - Best match UniProtKB/TrEMBL accession of protein product
+UNIPARC	String	.	UNIPARC - Best match UniParc accession of protein product
+GENE_PHENO	Flag	1	GENE_PHENO - Indicates if overlapped gene is associated with a phenotype disease or trait
+SIFT_prediction	String	1	SIFT - the SIFT prediction
+SIFT_score	Float	1	SIFT - the SIFT score
+PolyPhen_prediction	String	1	PolyPhen - the PolyPhen prediction
+PolyPhen_score	Float	1	PolyPhen - the PolyPhen prediction score
+DOMAINS	String	.	DOMAINS - the source and identifer of any overlapping protein domains
+HGVS_OFFSET	Integer	1	HGVS_OFFSET - Indicates by how many bases the HGVS notations for this variant have been shifted
+CLIN_SIG	String	.	CLIN_SIG - ClinVar clinical significance of the dbSNP variant
+SOMATIC	String	.	SOMATIC - Somatic status of existing variant(s)
+PHENO	String	.	PHENO - Indicates if existing variant is associated with a phenotype disease or trait
+PUBMED	String	.	PUBMED - Pubmed ID(s) of publications that cite existing variant
+MOTIF_NAME	String	1	MOTIF_NAME - the source and identifier of a transcription factor binding profile aligned at this position
+MOTIF_POS	Integer	1	MOTIF_POS - The relative position of the variation in the aligned TFBP
+HIGH_INF_POS	Flag	1	HIGH_INF_POS - a flag indicating if the variant falls in a high information position of a transcription factor binding profile (TFBP)
+MOTIF_SCORE_CHANGE	String	1	MOTIF_SCORE_CHANGE - The difference in motif score of the reference and variant sequences for the TFBP
+CADD_PHRED	Float	1	CADD_PHRED - Combined Annotation Dependent Depletion Phred-scaled score
+CADD_RAW	Float	1	CADD_RAW - Combined Annotation Dependent Depletion raw score
+Uploaded_variation	String	1	Uploaded variation - as chromosome_start_alleles
+Location	String	1	Location - in standard coordinate format (chr:start or chr:start-end)
+HGVSg	String	1	HGVSg - the HGVS genomic sequence name
+NEAREST	String	1	NEAREST - Identifier(s) of nearest transcription start site
+CELL_TYPE	String	1	CELL_TYPE - List of cell types and classifications for regulatory feature
+IND	String	1	IND - individual name
+ZYG	String	1	ZYG - zygosity of individual genotype at this locus
+SV	String	1	SV - IDs of overlapping structural variants
+FREQS	String	1	FREQS - Frequencies of overlapping variants used in filtering
+ASN_AF	Float	1	ASN_AF - Frequency of existing variant in 1000 Genomes combined Asian population
+MINIMISED	Flag	1	MINIMISED - Alleles in this variant have been converted to minimal representation before consequence calculation
+PICK	Flag	1	PICK - indicates if this block of consequence data was picked by --flag_pick or --flag_pick_allele
+REFSEQ_MATCH	String	1	REFSEQ_MATCH - the RefSeq transcript match status; contains a number of flags indicating whether this RefSeq transcript matches the underlying reference sequence and/or an Ensembl transcript (more information). NB: not available for GRCh37.
+AF	Float	.	AF - Frequency of existing variant in 1000 Genomes
+AFR_AF	Float	.	AFR_AF - Frequency of existing variant in 1000 Genomes combined African population
+AMR_AF	Float	.	AMR_AF - Frequency of existing variant in 1000 Genomes combined American population
+EAS_AF	Float	.	EAS_AF - Frequency of existing variant in 1000 Genomes combined East Asian population
+EUR_AF	Float	.	EUR_AF - Frequency of existing variant in 1000 Genomes combined European population
+SAS_AF	Float	.	SAS_AF - Frequency of existing variant in 1000 Genomes combined South Asian population
+AA_AF	Float	.	AA_AF - Frequency of existing variant in NHLBI-ESP African American population
+EA_AF	Float	.	EA_AF - Frequency of existing variant in NHLBI-ESP European American population
+ExAC_AF	Float	.	ExAC_AF - Frequency of existing variant in ExAC combined population
+ExAC_Adj_AF	Float	.	ExAC_Adj_AF - Adjusted frequency of existing variant in ExAC combined population
+ExAC_AFR_AF	Float	.	ExAC_AFR_AF - Frequency of existing variant in ExAC African/American population
+ExAC_AMR_AF	Float	.	ExAC_AMR_AF - Frequency of existing variant in ExAC American population
+ExAC_EAS_AF	Float	.	ExAC_EAS_AF - Frequency of existing variant in ExAC East Asian population
+ExAC_FIN_AF	Float	.	ExAC_FIN_AF - Frequency of existing variant in ExAC Finnish population
+ExAC_NFE_AF	Float	.	ExAC_NFE_AF - Frequency of existing variant in ExAC Non-Finnish European population
+ExAC_OTH_AF	Float	.	ExAC_OTH_AF - Frequency of existing variant in ExAC combined other combined populations
+ExAC_SAS_AF	Float	.	ExAC_SAS_AF - Frequency of existing variant in ExAC South Asian population
+gnomAD_AF	Float	.	gnomAD_AF - requency of existing variant in gnomAD exomes combined population
+gnomAD_AFR_AF	Float	.	gnomAD_AFR_AF - Frequency of existing variant in gnomAD exomes African/American population
+gnomAD_AMR_AF	Float	.	gnomAD_AMR_AF - Frequency of existing variant in gnomAD exomes American population
+gnomAD_ASJ_AF	Float	.	gnomAD_ASJ_AF - Frequency of existing variant in gnomAD exomes Ashkenazi Jewish population
+gnomAD_EAS_AF	Float	.	gnomAD_EAS_AF - Frequency of existing variant in gnomAD exomes East Asian population
+gnomAD_FIN_AF	Float	.	gnomAD_FIN_AF - Frequency of existing variant in gnomAD exomes Finnish population
+gnomAD_NFE_AF	Float	.	gnomAD_NFE_AF - Frequency of existing variant in gnomAD exomes Non-Finnish European population
+gnomAD_OTH_AF	Float	.	gnomAD_OTH_AF - Frequency of existing variant in gnomAD exomes combined other populations
+gnomAD_SAS_AF	Float	.	gnomAD_SAS_AF - Frequency of existing variant in gnomAD exomes South Asian population
+MAX_AF	Float	.	MAX_AF - Maximum observed allele frequency in 1000 Genomes ESP and ExAC
+MAX_AF_POPS	String	.	MAX_AF_POPS - Populations in which maximum allele frequency was observed
+BAM_EDIT	String	1	BAM_EDIT - Indicates success or failure of edit using BAM file
+GIVEN_REF	String	1	GIVEN_REF - Reference allele from input
+USED_REF	String	1	USED_REF - Reference allele as used to get consequences
+SOURCE	String	1	SOURCE - Source of transcript
+miRNA	String	1	miRNA - SO terms of overlapped miRNA secondary structure feature(s)
+MANE	String	1	MANE - MANE Select transcript for the gene.
+CHECK_REF	Flag	1	CHECK_REF flag
+REFSEQ_OFFSET	Integer	1	REFSEQ_OFFSET - HGVS adjustment length required due to mismatch between RefSeq transcript and the reference genome

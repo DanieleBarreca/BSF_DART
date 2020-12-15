@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h5 class="modal-title pull-left">{{annotation? "Edit" : "Annotate"}} {{variant['TRANSCRIPT']['INTERNAL:HGVSg']}} <br> (gene {{variant['TRANSCRIPT']['INTERNAL:GENE']}})</h5>
+</div>
+<div class="modal-body">
+  <div *ngIf="annotation" class="row" style="margin-bottom: 10px;">
+    <div class="col-xs-12">
+      <span style="font-size: small;">Original annotation: </span>
+      <span
+           class="label label-default annotation-label label-{{annotation['ANNOTATION']['TYPE']}}-{{annotation['ANNOTATION']['RANK']}}  selected-condition"
+           style="font-size: xx-small;">
+        {{annotation['ANNOTATION']['TYPE']}}:{{annotation['ANNOTATION']['LABEL']}} - {{annotation['INHERITANCE']['LABEL']}}
+      </span>
+    </div>
+  </div>
+  <div class="row" *ngIf="selectedConditionLabel">
+    <div class="col-xs-12 selectize-container">
+      <label for="preSelectCondition">Condition: </label>
+      <span id="preSelectCondition" > {{selectedConditionLabel}}</span>
+    </div>
+  </div>
+  <div class="row" [hidden]="selectedConditionLabel">
+    <div class="col-xs-12 selectize-container">
+      <label for="selectCondition">Condition: </label>
+      <select id="selectCondition" #selectCondition ></select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 selectize-container">
+      <label for="selectDictionary">Dictionary: </label>
+      <select id="selectDictionary" #selectDictionary [hidden]="!selectedCondition"></select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 selectize-container">
+      <label for="selectTerm">Term: </label>
+      <select id="selectTerm" #selectTerm [hidden]="!selectedDictionary" ></select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 selectize-container">
+      <label for="selectInheritance">Inheritance: </label>
+      <select id="selectInheritance" #selectInheritance [hidden]="!selectedTerm" ></select>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="edit()" *ngIf="annotation" [disabled]="!canSave()">Save</button>
+  <button type="button" class="btn btn-danger" (click)="delete()" *ngIf="annotation" >Delete</button>
+  <button type="button" class="btn btn-primary" (click)="save()" *ngIf="!annotation" [disabled]="!canSave()">Save</button>
+  <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+</div>

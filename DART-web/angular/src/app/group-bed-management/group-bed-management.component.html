@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-xs-12" style="margin-top: 20px">
+      <input id="file-upload" type="file" (change)="fileChange($event)" style="display: none" placeholder="Upload file" accept=".bed">
+      <label role="button" class="btn btn-default" for="file-upload" style="font-size: 15px">
+          <i style="color:#40B9D4" class="glyphicon glyphicon-plus"></i>
+          <strong style="color:#777">Upload BED</strong>
+      </label>
+  </div>
+  <div class="row" style="margin-bottom: 10px">
+    <div class="col-xs-12" style="border-bottom: 2px solid #40B9D4; padding: 15px 0 0 0"><span></span></div>
+  </div>
+  <div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+    <div class="col-xs-1"></div>
+    <div class="col-xs-5">
+      <div class="form-group">
+        <label for="searchName">File Name</label>
+        <input id="searchName" type="text" class="form-control form-control-sm" name="searchNameString" placeholder="Type to search ..."
+          [(ngModel)]="searchNameString">
+      </div>
+    </div>
+    <div class="col-xs-1"><strong>Genome</strong></div>
+    <div class="col-xs-1"><strong>Date</strong></div>
+    <div class="col-xs-1"><strong>Status</strong></div>
+    <div class="col-xs-3"><strong>MD5</strong></div>
+  </div>
+  <div style="height:calc(97% - 55px);overflow:auto;width:97%;" *ngIf="beds">
+    <div class="row" style="padding: 8px; border-top: 1px solid #ddd; " *ngFor="let bed of beds|tableFilter:'FILE_NAME':searchNameString">
+      <ng-template #msgTemplate>
+        <ul class="list-group list-group-flush" style="max-height:400px; overflow-y:scroll">
+          <li *ngFor="let message of bed.MESSAGES" class="list-group-item">{{message}}</li>
+        </ul>
+      </ng-template>
+
+      <div class="col-xs-1">
+        <span *ngIf="canDeleteBED(bed)" class="pull-right" style="margin-right:5px">
+          <i class="glyphicon glyphicon-remove" style="color:red" (click)="removeBED(bed)"></i>
+        </span>
+      </div>
+      <div class="col-xs-5" style="overflow:hidden;"> {{bed.FILE_NAME}}</div>
+      <div class="col-xs-1">{{bed.GENOME}}</div>
+      <div class="col-xs-1">{{bed.DATE | date:shortDate}}</div>
+      <div class="col-xs-1" container='body' placement='left' popoverTitle="Messages" [popover]="msgTemplate" [outsideClick]="true">
+          <a role="button" [ngClass]="[bed.STATUS+'-color','label']">
+            {{bed.STATUS}}
+        </a>
+      </div>
+      <div class="col-xs-3">{{bed.MD5}}</div>
+    </div>
+  </div>

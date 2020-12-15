@@ -1,0 +1,25 @@
+.parental-option {
+  display: inline-block;
+  width: 50% !important;
+}
+
+
+.separator {
+  border-bottom: solid 1px darkgray;
+  margin: 5px -4px;
+}
+
+div.ag-filter-body-wrapper{
+  width: 150px;
+  font-size: 12px;
+}
+
+.reset-button {
+  padding: 0px;
+  text-align: right;
+  width: 100%;
+}
+
+.affected {
+  color: #9e1a1a;
+}

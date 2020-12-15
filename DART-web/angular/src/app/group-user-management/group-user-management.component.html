@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-xs-12" style="margin-top: 20px">
+      <button class="btn btn-default" (click)="showNewUserModal()" style="font-size: 15px">
+          <i style="color:#40B9D4" class="glyphicon glyphicon-plus"></i>
+          <strong style="color:#777"> Add User</strong></button>
+  </div>
+</div>
+<div class="row" style="margin-bottom: 10px" >
+    <div class="col-xs-12" style="border-bottom: 2px solid #40B9D4; padding: 15px 0 0 0"><span></span></div>
+</div>
+<div class="row" style="padding: 8px; border-bottom: 1px solid #ddd;">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-2">
+    <div class="form-group">
+      <label for="searchLogin">User Login</label>
+      <input id="searchLogin" type="text" class="form-control form-control-sm" name="searchLoginController" placeholder="Type to search ..."
+        [(ngModel)]="searchLoginString">
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <div class="form-group">
+      <label for="searchEmail">User Email</label>
+      <input id="searchEmail" type="text" class="form-control form-control-sm" name="searchEmailController" placeholder="Type to search ..."
+        [(ngModel)]="searchEmailString">
+    </div>
+  </div>
+  <div class="col-xs-7">
+    <div class="row" style="margin-bottom: 8px">
+        <div class="col-xs-9" style="text-align: center;" ><div style="width: 90%; border-bottom: 1px solid;display:inline-block;"><strong>PERMISSIONS</strong></div></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-2" style="text-align: center;"><strong>Load VCF</strong></div>
+        <div class="col-xs-1" style="text-align: center;"><strong>Query</strong></div>
+        <div class="col-xs-1" style="text-align: center;"><strong>Preset</strong></div>
+        <div class="col-xs-1" style="text-align: center;"><strong>Panel</strong></div>
+        <div class="col-xs-2" style="text-align: center;"><strong>Pathogenicity</strong></div>
+        <div class="col-xs-1" style="text-align: center;"><strong>Validation</strong></div>
+        <div class="col-xs-1" style="text-align: center;"><strong>Report</strong></div>
+    </div>
+  </div>
+
+</div>
+
+<div style="height:calc(97% - 127px);overflow:auto;width:100%;">
+    <div class="row" style="padding: 8px; border-top: 1px solid #ddd;"
+      *ngFor="let user of users|tableFilter:'userName':searchLoginString|tableFilter:'email':searchEmailString">
+
+      <div class="col-xs-1">
+        <i class="glyphicon glyphicon-remove" style="color:red" tooltip="Remove from group" placement="right" container="body" (click)="removeUser(user.userName)"></i>
+        <div style="display: inline-block; width: 5px" ></div>
+        <i class="glyphicon glyphicon-repeat" tooltip="Reset Password" placement="right" container="body" (click)="resetPassword(user.userName)"></i>
+      </div>
+      <div class="col-xs-2">{{user.userName}}</div>
+      <div class="col-xs-2">{{user.email}}</div>
+      <div class="col-xs-7">
+        <div class="row">
+            <div class="col-xs-2" style="text-align: center">
+                <input type="checkbox" [(ngModel)]="getPermissions(user).canUploadVCF" (change)="setPermissions(user.userName, getPermissions(user))">
+            </div>
+            <div class="col-xs-1" style="text-align: center">
+                <input type="checkbox" [(ngModel)]="getPermissions(user).canQueryVCF" (change)="setPermissions(user.userName, getPermissions(user))">
+            </div>
+            <div class="col-xs-1" style="text-align: center">
+                <input type="checkbox" [(ngModel)]="getPermissions(user).canSavePreset" (change)="setPermissions(user.userName,getPermissions(user))">
+            </div>
+            <div class="col-xs-1" style="text-align: center">
+                <input type="checkbox" [(ngModel)]="getPermissions(user).canSavePanel" (change)="setPermissions(user.userName,getPermissions(user))">
+            </div>
+          <div class="col-xs-2" style="text-align: center">
+            <input type="checkbox" [(ngModel)]="getPermissions(user).canAnnotatePathogenicity" (change)="setPermissions(user.userName,getPermissions(user))">
+          </div>
+          <div class="col-xs-1" style="text-align: center">
+            <input type="checkbox" [(ngModel)]="getPermissions(user).canValidateVariants" (change)="setPermissions(user.userName,getPermissions(user))">
+          </div>
+          <div class="col-xs-1" style="text-align: center">
+            <input type="checkbox" [(ngModel)]="getPermissions(user).canSaveReport" (change)="setPermissions(user.userName,getPermissions(user))">
+          </div>
+          </div>
+        </div>
+      </div>
+  </div>

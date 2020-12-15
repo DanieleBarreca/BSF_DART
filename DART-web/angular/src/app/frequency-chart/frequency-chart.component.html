@@ -1,0 +1,10 @@
+<div style="display: block">
+  <canvas *ngIf="variant"
+    baseChart
+    [datasets]="data"
+    [labels]="populations"
+    [options]="barChartOptions"
+    legend="true"
+    chartType="bar">
+  </canvas>
+</div>

@@ -1,0 +1,14 @@
+.query-builder .rules-group-container{
+    background-color: rgba(204,204,204,0.2) !important;
+    border: 1px solid #CCC;
+    border-radius: 0px;
+}
+
+.query-builder .rule-container{
+    border: 1px solid #CCC;
+    border-radius: 0px;
+}
+
+.query-builder .rules-list>:last-child::before{
+    border-radius: 0px;
+}

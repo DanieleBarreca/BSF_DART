@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                                 http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
+             version="7">
+    <application-name>DART-package</application-name>
+    <module>
+        <web>
+            <web-uri>DART-API-${project.parent.version}.war</web-uri>
+            <context-root>/DART-API</context-root>
+        </web>
+    </module>
+    <module>
+        <web>
+            <web-uri>DART-static-${project.parent.version}.war</web-uri>
+            <context-root>/static</context-root>
+        </web>
+    </module>
+    <module>
+        <ejb>DART-core-${project.parent.version}.jar</ejb>
+    </module>
+</application>

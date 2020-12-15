@@ -1,0 +1,20 @@
+<div style="height: 100%; overflow: auto">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-xs-12">
+            <button class="btn btn-default" (click)="showQueryModal()" style="font-size: 15px">
+                <i style="color:#40B9D4" class="glyphicon glyphicon-plus"></i>
+                <strong style="color:#777"> New Query</strong></button>
+        </div>
+    </div>
+
+  <tabset id="tabsetComponent">
+    <tab *ngFor="let tab of tabs" [heading]="tab.title" [active]="tab.active" [removable]="true" (removed)="deleteQueries(tab.title)">
+      <div class="row" *ngFor="let cachedQueryInfo of tab.queries" >
+        <div class="col-xs-12">
+          <app-variant-query-container [cachedQueryInfo]="cachedQueryInfo" (onCopyQuery)="showQueryModal($event)" (onDeleteQuery)="deleteQuery()"></app-variant-query-container>
+        </div>
+      </div>
+    </tab>
+  </tabset>
+
+</div>

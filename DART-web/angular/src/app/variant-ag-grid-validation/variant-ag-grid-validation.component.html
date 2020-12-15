@@ -1,0 +1,31 @@
+<div class="row" >
+  <div class="col-xs-12">
+    <div class="btn-group" dropdown container="body" *ngIf="canChangeStatus()">
+      <div class="btn add-annotation" *ngIf="params.value" dropdownToggle>
+        <i class="glyphicon glyphicon-pencil"></i>
+      </div>
+      <div class="btn add-annotation" *ngIf="!params.value" dropdownToggle>
+        <i class="glyphicon glyphicon-plus"></i>
+      </div>
+      <ul id="dropdown-basic" *dropdownMenu
+          class="dropdown-menu"
+          style="text-align: left; font-size: smaller"
+          role="menu">
+        <li *ngFor="let status of possibleValidationStatus" role="menuitem">
+          <a (click)="changeValidationStatus(status)"><label class="label label-default label-{{status}}">{{status}}</label></a>
+        </li>
+        <li *ngIf="params.value" class="divider dropdown-divider"></li>
+        <li *ngIf="params.value" >
+          <a (click)="removeValidationStatus(params.value['REF_ID'])"><i class="glyphicon glyphicon-trash"></i> Clear</a>
+        </li>
+      </ul>
+    </div>
+    <span *ngIf="params.value"  class="label label-default dropdownToggle label-{{params.value['VALIDATION_STATUS']}}"
+          [class.strikethrough]="!params.value.VALID"
+          tooltip="created by {{params.value['ANNOTATION_USER']}}"
+          container="body"
+          placement="right">
+      {{params.value['VALIDATION_STATUS']}}
+    </span>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Save preset</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form (ngSubmit)="onSubmit()" #presetForm="ngForm">
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label for="mnemonicControl">Preset Name</label>
+      <input type="text" class="form-control" id="mnemonicControl" [(ngModel)]="mnemonic" name="mnemonicControl" #mnemonicControl="ngModel"
+        required>
+      <div [hidden]="mnemonicControl.valid || mnemonicControl.pristine" class="alert alert-danger">
+        A preset name is required
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" [disabled]="!presetForm.form.valid">Submit</button>
+    <button type="button" class="btn btn-danger" (click)="bsModalRef.hide()">Cancel</button>
+  </div>
+</form>

@@ -1,0 +1,41 @@
+<div class="row" style="height: calc(100% - 72px); !important;">
+  <div [ngClass]="{'col-xs-5': selectedRegion, 'col-xs-12': !selectedRegion, 'full-height':true}" >
+    <div  class="row full-height" >
+      <div class="col-xs-12 full-height">
+        <ag-grid-angular
+          #agGrid
+          style="max-width:100%; height: 100%;"
+          class="ag-theme-balham"
+          rowModelType="infinite"
+          [datasource]="config.datasource"
+          [columnDefs]="columnDef"
+          [rowData]="rowData"
+          rowSelection='single'
+          (rowDoubleClicked)="onRowDoubleClicked($event)"
+          (rowSelected)="onRowSelect($event)"
+          (sortChanged)="clearSelectedRegion()"
+          (filterChanged)="clearSelectedRegion()"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-7 full-height coverage-detail" *ngIf="selectedRegion">
+    <div class="row">
+      <div class="col-xs-6 pull-left text-left">
+        <button type="button" class="btn btn-default btn-sm" [ngClass] = "{'disabled':!hasPrev()}" (click)="selectPrev()">
+          <i class="glyphicon glyphicon-arrow-left"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm" [ngClass] = "{'disabled':!hasNext()}" (click)="selectNext()">
+          <i class="glyphicon glyphicon-arrow-right"></i>
+        </button>
+        <button type="button" class="btn btn-default btn-sm" (click)="clearSelectedRegion()">
+          <i class="glyphicon glyphicon-remove"></i>
+        </button>
+      </div>
+    </div>
+    <div style="height: calc(100% - 15px)">
+      <app-igv #igvBrowser [vcf]="config.vcf" [locus]="getCurrentLocus()" [sampleName]="config.sampleName" [selected]="true"></app-igv>
+    </div>
+  </div>
+</div>

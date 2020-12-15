@@ -1,0 +1,17 @@
+site_name: DART - Diagnostic Analysis and Reporting Tool
+
+markdown_extensions:
+  - attr_list
+extra:
+  feature:
+    tabs: false
+
+docs_dir: 'src'
+
+nav:
+  - Home: index.md
+  - 'Guides':
+    - 'Overview': guide-overview.md
+    - 'Query': guide-queries.md
+    - 'Report': guide-report.md
+    - 'Admin': guide-admin.md

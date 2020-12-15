@@ -1,0 +1,23 @@
+.tag {
+  margin-right: 5px;
+}
+
+.tag a {
+  color: #bbb;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.tag a:hover {
+  opacity: 1.0;
+}
+.tag .remove {
+  vertical-align: bottom;
+  top: 2px;
+}
+.tag a {
+  margin: 0 0 0 .8em;
+}
+.tag a .glyphicon-white {
+  color: #fff;
+  margin-bottom: 2px;
+}
